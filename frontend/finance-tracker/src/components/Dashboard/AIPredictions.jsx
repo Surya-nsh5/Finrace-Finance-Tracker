@@ -130,7 +130,7 @@ const AIPredictions = ({ onRefresh }) => {
           </div>
           <div>
             <h5 className="text-2xl font-extrabold text-[var(--color-text)]">AI Financial Insights</h5>
-            <p className="text-sm text-[var(--color-text)] opacity-60 font-medium">Powered by Gemini AI</p>
+            <p className="text-sm text-[var(--color-text)] opacity-60 font-medium">Powered by OpenRouter AI</p>
           </div>
         </div>
         <button

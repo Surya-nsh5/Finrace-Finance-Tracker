@@ -5,7 +5,7 @@ const {
   generateFinancialAnalysis,
   predictNextMonthExpenses,
   analyzeSpendingPatterns,
-} = require("../services/geminiService");
+} = require("../services/aiService");
 const {
   prepareFinancialDataForAI,
   hasMinimumDataForAnalysis,

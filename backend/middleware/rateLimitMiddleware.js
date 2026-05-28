@@ -1,8 +1,8 @@
 const User = require('../models/User');
 
 // Rate limit constants
-const DAILY_INSIGHTS_LIMIT = 2;
-const DAILY_BILL_SCANS_LIMIT = 5;
+const DAILY_INSIGHTS_LIMIT = 10;
+const DAILY_BILL_SCANS_LIMIT = 10;
 
 // Helper function to check if a date is from a different day
 const isDifferentDay = (date1, date2) => {
