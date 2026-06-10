@@ -10,8 +10,6 @@ import UserProvider, { UserContext } from "./context/UserContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { Toaster } from "react-hot-toast";
 import { Suspense, lazy } from "react";
-import InstallPWA from "./components/InstallPWA";
-
 // Lazy load pages
 const Login = lazy(() => import("./pages/Auth/Login"));
 const SignUp = lazy(() => import("./pages/Auth/SignUp"));
@@ -26,8 +24,8 @@ const AuthLoadingScreen = () => (
   <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg)] transition-colors duration-300">
     <div className="text-center animate-fade-in">
       <div className="relative inline-block w-16 h-16 mb-6">
-        <div className="absolute inset-0 rounded-full border-4 border-purple-500/20"></div>
-        <div className="absolute inset-0 rounded-full border-4 border-t-purple-500 animate-spin"></div>
+        <div className="absolute inset-0 rounded-full border-4 border-primary/20"></div>
+        <div className="absolute inset-0 rounded-full border-4 border-t-primary animate-spin"></div>
         <div className="absolute inset-0 flex items-center justify-center p-3">
           <img src="https://lh3.googleusercontent.com/d/1sh3I52WFTUbvX-19WI1u400uuiZ9vgS8" alt="FinRace" className="w-full h-full object-contain opacity-50" referrerPolicy="no-referrer" />
         </div>
@@ -51,7 +49,6 @@ const AppContent = () => {
   return (
     <div>
       <Router>
-        <InstallPWA />
         <Suspense fallback={<AuthLoadingScreen />}>
           <Routes>
             <Route path="/" element={<Landing />} />

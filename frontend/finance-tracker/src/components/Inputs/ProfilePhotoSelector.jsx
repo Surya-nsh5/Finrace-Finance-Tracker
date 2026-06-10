@@ -48,16 +48,15 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
       />
 
       {!image ? (
-        <div className="w-24 h-24 flex items-center justify-center bg-white rounded-full relative border border-gray-200 shadow-sm">
-          <LuUser className="text-4xl text-slate-400" />
-
+        <div className="w-24 h-24 flex items-center justify-center bg-[var(--color-input)] rounded-full relative border border-[var(--color-border)] shadow-sm">
+          <LuUser className="text-4xl text-[var(--color-text)] opacity-40" />
           <button
             type="button"
             onClick={onChooseFile}
             aria-label="upload"
-            className="w-8 h-8 flex items-center justify-center bg-black text-white rounded-full absolute -bottom-1 -right-1 shadow-md"
+            className="w-8 h-8 flex items-center justify-center bg-primary hover:bg-primary/90 text-white rounded-full absolute -bottom-1 -right-1 shadow-md transition-colors duration-200 cursor-pointer"
           >
-            <LuUpload />
+            <LuUpload size={14} />
           </button>
         </div>
       ) : (
@@ -65,24 +64,24 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
           <img
             src={previewUrl}
             alt="Profile Preview"
-            className="w-24 h-24 rounded-full object-cover border border-gray-200 shadow-sm"
+            className="w-24 h-24 rounded-full object-cover border border-[var(--color-border)] shadow-sm"
           />
           <div className="absolute -bottom-2 -right-2 flex gap-2">
             <button
               type="button"
               onClick={onChooseFile}
-              className="w-8 h-8 flex items-center justify-center bg-black text-white rounded-full shadow-md"
+              className="w-8 h-8 flex items-center justify-center bg-primary hover:bg-primary/90 text-white rounded-full shadow-md transition-colors duration-200 cursor-pointer"
               aria-label="change"
             >
-              <LuUpload />
+              <LuUpload size={14} />
             </button>
             <button
               type="button"
               onClick={handleRemoveImage}
-              className="w-8 h-8 flex items-center justify-center bg-red-500 text-white rounded-full"
+              className="w-8 h-8 flex items-center justify-center bg-expense hover:bg-expense/90 text-white rounded-full shadow-md transition-colors duration-200 cursor-pointer"
               aria-label="remove"
             >
-              <LuTrash />
+              <LuTrash size={14} />
             </button>
           </div>
         </div>

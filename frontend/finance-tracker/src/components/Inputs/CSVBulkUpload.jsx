@@ -84,7 +84,7 @@ const CSVBulkUpload = ({ type, onUploadComplete, apiPath }) => {
       <button
         onClick={handleButtonClick}
         disabled={uploading}
-        className={`flex items-center gap-2 px-4 py-2 ${type === "Income" ? "bg-green-600 hover:bg-green-700" : type === "Expense" ? "bg-red-600 hover:bg-red-700" : "bg-blue-600 hover:bg-blue-700"} text-white rounded-lg transition text-sm font-medium shadow-sm hover:shadow-md ${uploading ? "opacity-50 cursor-not-allowed" : ""
+        className={`flex items-center gap-2 px-4 py-2 ${type === "Income" ? "bg-income hover:opacity-90" : type === "Expense" ? "bg-expense hover:opacity-90" : "bg-primary hover:opacity-90"} text-white rounded-lg transition text-sm font-medium ${uploading ? "opacity-50 cursor-not-allowed" : ""
           }`}
         title={`Upload ${type}s from CSV file`}
       >

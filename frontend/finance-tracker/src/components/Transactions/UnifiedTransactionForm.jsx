@@ -126,7 +126,7 @@ const UnifiedTransactionForm = ({ onAddTransaction, submitHandlerRef }) => {
                         type="button"
                         onClick={() => setTransactionType("income")}
                         className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${transactionType === "income"
-                            ? "bg-green-600 text-white shadow-lg shadow-green-500/30"
+                            ? "bg-income text-white"
                             : "bg-[var(--color-input)] text-[var(--color-text)] opacity-70 hover:opacity-100 border border-[var(--color-border)]"
                             }`}
                     >
@@ -137,7 +137,7 @@ const UnifiedTransactionForm = ({ onAddTransaction, submitHandlerRef }) => {
                         type="button"
                         onClick={() => setTransactionType("expense")}
                         className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${transactionType === "expense"
-                            ? "bg-red-600 text-white shadow-lg shadow-red-500/30"
+                            ? "bg-expense text-white"
                             : "bg-[var(--color-input)] text-[var(--color-text)] opacity-70 hover:opacity-100 border border-[var(--color-border)]"
                             }`}
                     >
@@ -203,7 +203,7 @@ const UnifiedTransactionForm = ({ onAddTransaction, submitHandlerRef }) => {
                     </label>
 
                     {!imagePreview ? (
-                        <label className="flex flex-col items-center justify-center w-full h-28 sm:h-32 border-2 border-dashed border-[var(--color-border)] rounded-xl cursor-pointer bg-[var(--color-input)] hover:bg-[var(--color-border)] transition-all duration-150 hover:border-purple-400">
+                        <label className="flex flex-col items-center justify-center w-full h-28 sm:h-32 border-2 border-dashed border-[var(--color-border)] rounded-xl cursor-pointer bg-[var(--color-input)] hover:bg-[var(--color-border)] transition-all duration-150 hover:border-primary">
                             <div className="flex flex-col items-center justify-center pt-3 pb-3 sm:pt-5 sm:pb-6">
                                 <LuUpload className="w-6 h-6 sm:w-8 sm:h-8 mb-1 sm:mb-2 text-[var(--color-text)] opacity-40" />
                                 <p className="mb-1 text-xs sm:text-sm text-[var(--color-text)] opacity-60 text-center px-2">
@@ -250,7 +250,7 @@ const UnifiedTransactionForm = ({ onAddTransaction, submitHandlerRef }) => {
                                 type="button"
                                 onClick={scanBillImage}
                                 disabled={scanning}
-                                className="w-full flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm sm:text-base font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-100 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 will-change-transform"
+                                className="w-full flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-primary text-white text-sm sm:text-base font-medium rounded-lg hover:opacity-90 transition-all duration-100 active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                             >
                                 <LuScan
                                     className={`w-4 h-4 ${scanning ? "animate-pulse" : ""}`}

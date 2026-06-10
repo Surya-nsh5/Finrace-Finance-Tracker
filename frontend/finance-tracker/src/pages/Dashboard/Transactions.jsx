@@ -290,7 +290,7 @@ const Transactions = () => {
                         {/* Title & Subtitle */}
                         <div className="flex flex-col gap-1.5 max-w-xl">
                             <h2 className="text-xl sm:text-2xl font-bold text-[var(--color-text)] tracking-tight">
-                                Transaction Trends <span className="text-purple-500">({dateRange === 'all' ? 'Lifetime' : `Last ${dateRange} Days`})</span>
+                                Transaction Trends <span className="text-primary">({dateRange === 'all' ? 'Lifetime' : `Last ${dateRange} Days`})</span>
                             </h2>
                             <p className="text-sm sm:text-base text-[var(--color-text)] opacity-60 font-medium">
                                 Track your income and expenses over time
@@ -306,7 +306,7 @@ const Transactions = () => {
                                         key={range}
                                         onClick={() => setDateRange(range)}
                                         className={`px-3 py-2 sm:px-4 sm:py-2 rounded-xl transition-all duration-200 flex flex-col lg:flex-row items-center justify-center lg:gap-1.5 min-w-[65px] sm:min-w-[80px] lg:min-w-0 relative ${dateRange === range
-                                            ? 'bg-gradient-to-br from-purple-600 to-indigo-600 text-white shadow-md z-10'
+                                            ? 'bg-primary text-white shadow-md z-10'
                                             : 'text-[var(--color-text)] opacity-50 hover:opacity-100 hover:bg-[var(--color-bg)] hover:shadow-sm'
                                             }`}
                                     >
@@ -325,13 +325,13 @@ const Transactions = () => {
                             {/* Summary Stats - Vertically stacked as in image */}
                             <div className="grid grid-cols-2 md:grid-cols-1 gap-6 md:gap-4 py-1 pr-2 w-full md:w-auto">
                                 <div className="flex items-center gap-3 transition-transform hover:translate-x-1">
-                                    <div className="w-1 md:w-4 h-6 md:h-4 bg-green-500 rounded-full border-2 border-white/10 shrink-0"></div>
+                                    <div className="w-1 md:w-4 h-6 md:h-4 bg-income rounded-full border-2 border-white/10 shrink-0"></div>
                                     <p className="text-sm sm:text-base font-semibold text-[var(--color-text)] whitespace-nowrap">
                                         Income: <span className="font-bold text-[var(--color-text)] text-lg sm:text-xl ml-1">₹{totalIncome.toLocaleString()}</span>
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-3 transition-transform hover:translate-x-1">
-                                    <div className="w-1 md:w-4 h-6 md:h-4 bg-red-500 rounded-full border-2 border-white/10 shrink-0"></div>
+                                    <div className="w-1 md:w-4 h-6 md:h-4 bg-expense rounded-full border-2 border-white/10 shrink-0"></div>
                                     <p className="text-sm sm:text-base font-semibold text-[var(--color-text)] whitespace-nowrap">
                                         Expense: <span className="font-bold text-[var(--color-text)] text-lg sm:text-xl ml-1">₹{totalExpense.toLocaleString()}</span>
                                     </p>
@@ -340,15 +340,15 @@ const Transactions = () => {
                         </div>
                     </div>
 
-                    <div className="bg-[var(--color-bg)] rounded-2xl p-4 sm:p-6 border border-[var(--color-border)] shadow-inner">
+                    <div className="bg-[var(--color-bg)] rounded-2xl p-1.5 sm:p-6 border border-[var(--color-border)] shadow-inner">
                         <CustomDualLineChart
                             data={chartData}
                             lines={[
-                                { dataKey: "income", stroke: "#10b981", name: "Income", strokeWidth: 3 },
-                                { dataKey: "expense", stroke: "#ef4444", name: "Expense", strokeWidth: 3 }
+                                { dataKey: "income", stroke: "#22C55E", name: "Income", strokeWidth: 3 },
+                                { dataKey: "expense", stroke: "#EF4444", name: "Expense", strokeWidth: 3 }
                             ]}
                             xAxisKey="date"
-                            height={window.innerWidth >= 1024 ? 500 : 350}
+                            height={window.innerWidth >= 1024 ? 380 : 300}
                         />
                     </div>
                 </div>
@@ -360,7 +360,7 @@ const Transactions = () => {
                         <button
                             onClick={() => setFilterType("all")}
                             className={`px-4 py-2 rounded-md font-medium text-sm transition-all ${filterType === "all"
-                                ? "bg-purple-600 text-white shadow-md"
+                                ? "bg-primary text-white"
                                 : "text-[var(--color-text)] opacity-70 hover:opacity-100"
                                 }`}
                         >
@@ -369,7 +369,7 @@ const Transactions = () => {
                         <button
                             onClick={() => setFilterType("income")}
                             className={`px-4 py-2 rounded-md font-medium text-sm transition-all ${filterType === "income"
-                                ? "bg-green-600 text-white shadow-md"
+                                ? "bg-income text-white"
                                 : "text-[var(--color-text)] opacity-70 hover:opacity-100"
                                 }`}
                         >
@@ -378,7 +378,7 @@ const Transactions = () => {
                         <button
                             onClick={() => setFilterType("expense")}
                             className={`px-4 py-2 rounded-md font-medium text-sm transition-all ${filterType === "expense"
-                                ? "bg-red-600 text-white shadow-md"
+                                ? "bg-expense text-white"
                                 : "text-[var(--color-text)] opacity-70 hover:opacity-100"
                                 }`}
                         >
@@ -391,7 +391,7 @@ const Transactions = () => {
                         {/* Add Transaction Button */}
                         <button
                             onClick={() => setOpenAddModal(true)}
-                            className="flex items-center gap-2 px-4 py-2.5 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition shadow-md hover:shadow-lg"
+                            className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition shadow-md hover:shadow-lg"
                         >
                             <LuPlus className="text-lg" />
                             <span>Add Transaction</span>
@@ -415,7 +415,7 @@ const Transactions = () => {
                     footer={
                         <button
                             onClick={() => submitHandlerRef.current?.()}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition shadow-lg hover:shadow-xl active:scale-95"
+                            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition shadow-lg hover:shadow-xl active:scale-95"
                         >
                             <LuPlus className="text-xl" />
                             <span>Add Transaction</span>

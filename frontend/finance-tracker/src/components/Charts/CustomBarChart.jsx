@@ -68,7 +68,7 @@ const CustomBarChart = React.memo(({ data = [], colors }) => {
   const { isDarkMode } = useTheme();
   // Memoize color function
   const getBarColor = useMemo(() => {
-    const defaultColors = ["#875cf5", "#a78bfa", "#c4b5fd", "#ddd6fe"];
+    const defaultColors = ["#7C3AED", "#905DF3", "#A57EFA", "#BCA0FF"];
     const colorArray = colors && Array.isArray(colors) ? colors : defaultColors;
     return (index) => colorArray[index % colorArray.length];
   }, [colors]);
@@ -126,7 +126,7 @@ const CustomBarChart = React.memo(({ data = [], colors }) => {
       // Or maybe "Total Income" / "Total Expense"?
       // Let's look at the tooltip. content.
 
-      const isIncome = source !== undefined || (payload[0] && payload[0].fill === "#875cf5"); // Heuristic? Or pass type prop?
+      const isIncome = source !== undefined || (payload[0] && payload[0].fill === "#8B5CF6"); // Heuristic? Or pass type prop?
       // Or just check data structure.
       // If aggregated, we don't know the specific source.
 
@@ -138,12 +138,12 @@ const CustomBarChart = React.memo(({ data = [], colors }) => {
             {dateLabel}
           </p>
           <div className="flex items-center gap-2">
-            <div className={`w-2 h-2 rounded-full ${source ? 'bg-green-500' : 'bg-purple-500'}`}></div>
+            <div className={`w-2 h-2 rounded-full ${source ? 'bg-income' : 'bg-primary'}`}></div>
             <div>
               <p className="text-sm font-bold text-[var(--color-text)]">
                 {label}
               </p>
-              <p className="text-sm font-semibold text-purple-600">
+              <p className="text-sm font-semibold text-primary">
                 ₹{addThousandsSeparator(amount)}
               </p>
             </div>
@@ -171,7 +171,7 @@ const CustomBarChart = React.memo(({ data = [], colors }) => {
     );
   }
 
-  const chartHeight = isDesktop ? "500px" : "380px";
+  const chartHeight = isDesktop ? "360px" : "300px";
 
   return (
     <div
@@ -181,10 +181,15 @@ const CustomBarChart = React.memo(({ data = [], colors }) => {
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={data || []}
-          margin={{
+          margin={isDesktop ? {
             top: 5,
             right: 10,
             left: 0,
+            bottom: bottomMargin,
+          } : {
+            top: 5,
+            right: 5,
+            left: -20,
             bottom: bottomMargin,
           }}
           barCategoryGap={data.length <= 3 ? "25%" : "10%"}
@@ -196,7 +201,7 @@ const CustomBarChart = React.memo(({ data = [], colors }) => {
           </defs>
           <CartesianGrid
             strokeDasharray="3 3"
-            stroke={isDarkMode ? "#334155" : "#f3f4f6"}
+            stroke={isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#f3f4f6"}
             vertical={false}
             opacity={0.5}
           />
@@ -204,24 +209,24 @@ const CustomBarChart = React.memo(({ data = [], colors }) => {
           <XAxis
             dataKey="name"
             tick={<CustomizedAxisTick isDarkMode={isDarkMode} />}
-            stroke={isDarkMode ? "#475569" : "#e5e7eb"}
-            axisLine={{ stroke: isDarkMode ? "#475569" : "#e5e7eb", strokeWidth: 1 }}
-            tickLine={{ stroke: isDarkMode ? "#475569" : "#e5e7eb" }}
+            stroke={isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#e5e7eb"}
+            axisLine={{ stroke: isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#e5e7eb", strokeWidth: 1 }}
+            tickLine={{ stroke: isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#e5e7eb" }}
             height={xAxisHeight}
             dy={5}
             interval="preserveStartEnd"
           />
           <YAxis
-            tick={{ fontSize: 11, fill: isDarkMode ? "#94a3b8" : "#6b7280", fontWeight: 500 }}
-            stroke={isDarkMode ? "#475569" : "#e5e7eb"}
-            axisLine={{ stroke: isDarkMode ? "#475569" : "#e5e7eb", strokeWidth: 1 }}
-            tickLine={{ stroke: isDarkMode ? "#475569" : "#e5e7eb" }}
+            tick={{ fontSize: isDesktop ? 11 : 9, fill: isDarkMode ? "#94A3B8" : "#6b7280", fontWeight: 500 }}
+            stroke={isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#e5e7eb"}
+            axisLine={{ stroke: isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#e5e7eb", strokeWidth: 1 }}
+            tickLine={{ stroke: isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#e5e7eb" }}
             domain={[0, "dataMax + 500"]}
             tickFormatter={formatYAxisValue}
             allowDuplicatedCategory={false}
             allowDataOverflow={false}
-            width={60}
-            dx={-5}
+            width={isDesktop ? 60 : 38}
+            dx={isDesktop ? -5 : -2}
           />
           <Tooltip
             content={<CustomTooltip />}

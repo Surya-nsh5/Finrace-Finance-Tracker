@@ -47,13 +47,13 @@ const AIPredictions = ({ onRefresh }) => {
     return (
       <div className="bg-[var(--color-card)] rounded-2xl shadow-sm p-6 border border-[var(--color-border)]">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl">
+          <div className="p-2 bg-primary rounded-xl">
             <LuBrain className="text-white text-2xl" />
           </div>
           <h5 className="text-lg font-bold text-[var(--color-text)]">AI Financial Insights</h5>
         </div>
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 border-t-purple-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary/20 border-t-primary mx-auto mb-4"></div>
           <p className="text-[var(--color-text)] font-medium">Analyzing your financial data...</p>
           <p className="text-sm text-[var(--color-text)] opacity-60 mt-2">This may take a few seconds</p>
         </div>
@@ -65,14 +65,14 @@ const AIPredictions = ({ onRefresh }) => {
     return (
       <div className="bg-[var(--color-card)] rounded-2xl shadow-sm p-6 border border-[var(--color-border)]">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl">
+          <div className="p-2 bg-primary rounded-xl">
             <LuBrain className="text-white text-2xl" />
           </div>
           <h5 className="text-lg font-bold text-[var(--color-text)]">AI Financial Insights</h5>
         </div>
         <div className="text-center py-8">
-          <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-            <LuBrain className="text-purple-600 dark:text-purple-400 text-3xl" />
+          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <LuBrain className="text-primary text-3xl" />
           </div>
           <h6 className="text-lg font-semibold text-[var(--color-text)] mb-2">Not Enough Data Yet</h6>
           <p className="text-sm text-[var(--color-text)] opacity-70 mb-6 max-w-md mx-auto">
@@ -80,7 +80,7 @@ const AIPredictions = ({ onRefresh }) => {
           </p>
           <button
             onClick={handleRefresh}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition flex items-center gap-2 mx-auto"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition flex items-center gap-2 mx-auto"
           >
             <LuRefreshCw className="text-lg" />
             Check Again
@@ -94,7 +94,7 @@ const AIPredictions = ({ onRefresh }) => {
     return (
       <div className="bg-[var(--color-card)] rounded-2xl shadow-sm p-6 border border-[var(--color-border)]">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl">
+          <div className="p-2 bg-primary rounded-xl">
             <LuBrain className="text-white text-2xl" />
           </div>
           <h5 className="text-lg font-bold text-[var(--color-text)]">AI Financial Insights</h5>
@@ -106,7 +106,7 @@ const AIPredictions = ({ onRefresh }) => {
           <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
           <button
             onClick={handleRefresh}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition flex items-center gap-2 mx-auto"
+            className="px-4 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition flex items-center gap-2 mx-auto"
           >
             <LuRefreshCw className="text-lg" />
             Retry
@@ -125,7 +125,7 @@ const AIPredictions = ({ onRefresh }) => {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl">
+          <div className="p-2 bg-primary rounded-xl">
             <LuBrain className="text-white text-2xl" />
           </div>
           <div>
@@ -145,11 +145,11 @@ const AIPredictions = ({ onRefresh }) => {
 
       {/* Financial Health Score */}
       {financialHealthScore && (
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-xl p-5 mb-6 border border-purple-100 dark:border-purple-800/30">
+        <div className="bg-[var(--color-input)] rounded-xl p-5 mb-6 border border-[var(--color-border)]">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <p className="text-base text-purple-700 dark:text-purple-300 font-bold mb-1">Financial Health Score</p>
-              <p className="text-5xl font-extrabold text-purple-900 dark:text-purple-100">{financialHealthScore.score}/100</p>
+              <p className="text-base text-primary font-bold mb-1">Financial Health Score</p>
+              <p className="text-5xl font-extrabold text-[#D4AF37]">{financialHealthScore.score}/100</p>
             </div>
             <div className="text-right">
               <span className={`inline-block px-4 py-2 rounded-full text-base font-bold ${financialHealthScore.rating === 'excellent' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
@@ -163,17 +163,17 @@ const AIPredictions = ({ onRefresh }) => {
           </div>
           {financialHealthScore.breakdown && (
             <div className="grid grid-cols-3 gap-3 mt-4">
-              <div className="bg-white/60 dark:bg-white/5 rounded-lg p-3 text-center">
-                <p className="text-sm text-purple-700 dark:text-purple-300 font-bold mb-1">Savings</p>
-                <p className="text-xl font-extrabold text-purple-900 dark:text-purple-100">{financialHealthScore.breakdown.savingsRate}</p>
+              <div className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg p-3 text-center">
+                <p className="text-sm text-primary font-bold mb-1">Savings</p>
+                <p className="text-xl font-extrabold text-[var(--color-text)]">{financialHealthScore.breakdown.savingsRate}</p>
               </div>
-              <div className="bg-white/60 dark:bg-white/5 rounded-lg p-3 text-center">
-                <p className="text-sm text-purple-700 dark:text-purple-300 font-bold mb-1">Control</p>
-                <p className="text-xl font-extrabold text-purple-900 dark:text-purple-100">{financialHealthScore.breakdown.expenseControl}</p>
+              <div className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg p-3 text-center">
+                <p className="text-sm text-primary font-bold mb-1">Control</p>
+                <p className="text-xl font-extrabold text-[var(--color-text)]">{financialHealthScore.breakdown.expenseControl}</p>
               </div>
-              <div className="bg-white/60 dark:bg-white/5 rounded-lg p-3 text-center">
-                <p className="text-sm text-purple-700 dark:text-purple-300 font-bold mb-1">Income</p>
-                <p className="text-xl font-extrabold text-purple-900 dark:text-purple-100">{financialHealthScore.breakdown.incomeStability}</p>
+              <div className="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg p-3 text-center">
+                <p className="text-sm text-primary font-bold mb-1">Income</p>
+                <p className="text-xl font-extrabold text-[var(--color-text)]">{financialHealthScore.breakdown.incomeStability}</p>
               </div>
             </div>
           )}
@@ -291,7 +291,7 @@ const AIPredictions = ({ onRefresh }) => {
           <h6 className="text-lg font-bold text-[var(--color-text)] mb-3">AI Recommendations</h6>
           <div className="space-y-3">
             {recommendations.slice(0, 5).map((rec, idx) => (
-              <div key={idx} className={`flex gap-3 items-start p-4 rounded-lg bg-[var(--color-input)] border-2 ${rec.priority === 'high' ? 'border-purple-300 dark:border-purple-800' :
+              <div key={idx} className={`flex gap-3 items-start p-4 rounded-lg bg-[var(--color-input)] border-2 ${rec.priority === 'high' ? 'border-primary/30' :
                 rec.priority === 'medium' ? 'border-blue-300 dark:border-blue-800' :
                   'border-gray-300 dark:border-gray-700'
                 }`}>
@@ -304,7 +304,7 @@ const AIPredictions = ({ onRefresh }) => {
                   <div className="flex items-center gap-2 mb-1">
                     {rec.category && <span className="text-sm font-bold text-[var(--color-text)]">{rec.category}</span>}
                     {rec.priority === 'high' && (
-                      <span className="text-xs px-3 py-1 bg-purple-100 dark:bg-purple-900/40 text-purple-900 dark:text-purple-200 rounded-full font-bold">HIGH PRIORITY</span>
+                      <span className="text-xs px-3 py-1 bg-primary/10 text-primary rounded-full font-bold">HIGH PRIORITY</span>
                     )}
                   </div>
                   <p className="text-base text-[var(--color-text)] opacity-90 font-medium">{rec.message}</p>
@@ -326,8 +326,8 @@ const AIPredictions = ({ onRefresh }) => {
           <h6 className="text-lg font-bold text-[var(--color-text)] mb-3">Key Insights</h6>
           <div className="space-y-3">
             {insights.map((insight, idx) => (
-              <div key={idx} className="flex gap-3 items-start bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/10 dark:to-blue-900/10 rounded-lg p-4 border border-purple-200 dark:border-purple-800/30">
-                <span className="text-purple-600 dark:text-purple-400 font-bold text-xl">•</span>
+              <div key={idx} className="flex gap-3 items-start bg-[var(--color-input)] rounded-lg p-4 border border-[var(--color-border)]">
+                <span className="text-primary font-bold text-xl">•</span>
                 <p className="text-base text-[var(--color-text)] font-medium">{insight}</p>
               </div>
             ))}

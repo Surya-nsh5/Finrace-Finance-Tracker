@@ -23,7 +23,7 @@ const DashboardLayout = ({ children, activeMenu }) => {
           </div>
 
           {/* Main Content Area - scrollable with padding for mobile navbar */}
-          <div className='flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 lg:pb-8 pt-24 lg:pt-8 bg-[var(--color-bg)] transition-colors duration-300'>
+          <div className='flex-1 overflow-y-auto px-4 sm:px-6 lg:px-6 pb-4 sm:pb-6 lg:pb-6 pt-24 lg:pt-6 bg-[var(--color-bg)] transition-colors duration-300'>
             {children}
           </div>
         </div>

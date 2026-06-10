@@ -133,7 +133,7 @@ const Income = () => {
   const addIncomeFooter = (
     <button
       type="button"
-      className="w-full group flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white text-sm sm:text-base font-semibold rounded-xl shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-120 hover:scale-105 active:scale-95"
+      className="w-full group flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-primary to-primary/90 text-white text-sm sm:text-base font-semibold rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-120 hover:scale-105 active:scale-95"
       onClick={() => submitHandlerRef.current && submitHandlerRef.current()}
     >
       <LuPlus className="text-base sm:text-lg group-hover:rotate-90 transition-transform duration-120" />

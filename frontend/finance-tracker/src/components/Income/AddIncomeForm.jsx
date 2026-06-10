@@ -108,7 +108,7 @@ const AddIncomeForm = ({ onAddIncome, submitHandlerRef }) => {
     <div className="animate-fade-in">
       {/* Icon Picker Section */}
       <div className="mb-3 sm:mb-4 animate-scale-in" style={{ animationDelay: "30ms" }}>
-        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2">
+        <label className="block text-xs sm:text-sm font-semibold text-[var(--color-text)] mb-2">
           Choose Icon
         </label>
         <EmojiPickerPopup
@@ -161,20 +161,20 @@ const AddIncomeForm = ({ onAddIncome, submitHandlerRef }) => {
         </div>
         {/* Image Upload Section */}
         <div className="animate-fade-in" style={{ animationDelay: "150ms" }}>
-          <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2">
+          <label className="block text-xs sm:text-sm font-semibold text-[var(--color-text)] mb-2">
             Upload Receipt/Image (Optional)
           </label>
 
           {!imagePreview ? (
-            <label className="flex flex-col items-center justify-center w-full h-28 sm:h-32 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-all duration-150 hover:border-purple-400">
+            <label className="flex flex-col items-center justify-center w-full h-28 sm:h-32 border-2 border-dashed border-[var(--color-border)] rounded-xl cursor-pointer bg-[var(--color-input)] hover:bg-[var(--color-border)] transition-all duration-150 hover:border-primary">
               <div className="flex flex-col items-center justify-center pt-3 pb-3 sm:pt-4 sm:pb-4">
                 {" "}
-                <LuUpload className="w-6 h-6 sm:w-8 sm:h-8 mb-1 sm:mb-2 text-gray-400" />
-                <p className="mb-1 text-xs sm:text-sm text-gray-500 text-center px-2">
+                <LuUpload className="w-6 h-6 sm:w-8 sm:h-8 mb-1 sm:mb-2 text-[var(--color-text)] opacity-45" />
+                <p className="mb-1 text-xs sm:text-sm text-[var(--color-text)] opacity-60 text-center px-2">
                   <span className="font-semibold">Click to upload</span>
                   <span className="hidden sm:inline"> or drag and drop</span>
                 </p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--color-text)] opacity-40">
                   PNG, JPG, JPEG (MAX. 5MB)
                 </p>
               </div>
@@ -187,7 +187,7 @@ const AddIncomeForm = ({ onAddIncome, submitHandlerRef }) => {
             </label>
           ) : (
             <div className="space-y-2 sm:space-y-3">
-              <div className="relative w-full h-36 sm:h-40 border-2 border-gray-200 rounded-xl overflow-hidden group will-change-transform">
+              <div className="relative w-full h-36 sm:h-40 border-2 border-[var(--color-border)] rounded-xl overflow-hidden group will-change-transform">
                 <img
                   src={imagePreview}
                   alt="Preview"
@@ -198,7 +198,7 @@ const AddIncomeForm = ({ onAddIncome, submitHandlerRef }) => {
                 <button
                   type="button"
                   onClick={removeImage}
-                  className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-100 opacity-0 group-hover:opacity-100 will-change-opacity"
+                  className="absolute top-2 right-2 p-2 bg-expense text-white rounded-full hover:bg-expense/90 transition-colors duration-100 opacity-0 group-hover:opacity-100 will-change-opacity"
                 >
                   <LuX className="w-4 h-4" />
                 </button>

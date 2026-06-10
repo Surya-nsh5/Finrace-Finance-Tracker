@@ -53,13 +53,24 @@ const Home = () => {
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className="transition-page transition-colors duration-300">
+        {/* Header */}
+        <div className="mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-2">
+            Dashboard
+          </h1>
+          <p className="text-[var(--color-text)] opacity-60">
+            Overview of your financial situation
+          </p>
+        </div>
+
         {/* Info Cards Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <InfoCard
             icon={<IoMdCard />}
             label="Total Balance"
             value={addThousandsSeparator(dashboardData?.totalBalance || 0)}
-            color="bg-purple-500"
+            color="text-[#D4AF37] bg-[#D4AF37]/10"
+            isHighlight={true}
             index={0}
             loading={loading}
           />
@@ -68,7 +79,7 @@ const Home = () => {
             icon={<LuWalletMinimal />}
             label="Total Income"
             value={addThousandsSeparator(dashboardData?.totalIncome || 0)}
-            color="bg-orange-500"
+            color="text-[#22C55E] bg-[#22C55E]/10"
             index={1}
             loading={loading}
           />
@@ -77,7 +88,7 @@ const Home = () => {
             icon={<LuUsers />}
             label="Total Expenses"
             value={addThousandsSeparator(dashboardData?.totalExpenses || 0)}
-            color="bg-red-500"
+            color="text-[#EF4444] bg-[#EF4444]/10"
             index={2}
             loading={loading}
           />

@@ -169,7 +169,7 @@ const AddExpenseForm = ({ openAddExpense, submitHandlerRef }) => {
           </label>
 
           {!imagePreview ? (
-            <label className="flex flex-col items-center justify-center w-full h-28 sm:h-32 border-2 border-dashed border-[var(--color-border)] rounded-xl cursor-pointer bg-[var(--color-input)] hover:bg-[var(--color-border)] transition-all duration-150 hover:border-purple-400">
+            <label className="flex flex-col items-center justify-center w-full h-28 sm:h-32 border-2 border-dashed border-[var(--color-border)] rounded-xl cursor-pointer bg-[var(--color-input)] hover:bg-[var(--color-border)] transition-all duration-150 hover:border-primary">
               <div className="flex flex-col items-center justify-center pt-3 pb-3 sm:pt-5 sm:pb-6">
                 <LuUpload className="w-6 h-6 sm:w-8 sm:h-8 mb-1 sm:mb-2 text-[var(--color-text)] opacity-40" />
                 <p className="mb-1 text-xs sm:text-sm text-[var(--color-text)] opacity-60 text-center px-2">
@@ -200,7 +200,7 @@ const AddExpenseForm = ({ openAddExpense, submitHandlerRef }) => {
                 <button
                   type="button"
                   onClick={removeImage}
-                  className="absolute top-2 right-2 p-1.5 sm:p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-100 opacity-0 group-hover:opacity-100 will-change-opacity"
+                  className="absolute top-2 right-2 p-1.5 sm:p-2 bg-expense text-white rounded-full hover:bg-expense/90 transition-colors duration-100 opacity-0 group-hover:opacity-100 will-change-opacity"
                 >
                   <LuX className="w-4 h-4" />
                 </button>

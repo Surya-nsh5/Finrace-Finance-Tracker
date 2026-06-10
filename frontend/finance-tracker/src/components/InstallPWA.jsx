@@ -48,9 +48,9 @@ const InstallPWA = () => {
     if (isStandalone || !isOpen || location.pathname !== '/') return null;
 
     return (
-        <div className="fixed bottom-6 right-6 z-[100] w-[calc(100%-48px)] sm:w-72 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-4 animate-slide-up transition-all duration-500 overflow-hidden group">
-            {/* Subtle Gradient Glow */}
-            <div className="absolute top-0 right-0 w-24 h-24 bg-purple-600/10 blur-2xl rounded-full pointer-events-none group-hover:bg-purple-600/20 transition-all duration-500"></div>
+        <div className="fixed bottom-6 right-6 z-[100] w-[calc(100%-48px)] sm:w-72 bg-[var(--color-card)] border border-[var(--color-border)] rounded-xl shadow-2xl p-4 animate-slide-up transition-all duration-500 overflow-hidden group">
+            {/* Subtle Accent Glow */}
+            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 blur-2xl rounded-full pointer-events-none transition-all duration-500"></div>
 
             <button
                 onClick={() => setIsOpen(false)}
@@ -61,7 +61,7 @@ const InstallPWA = () => {
 
             <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-white/[0.05] rounded-xl flex items-center justify-center shrink-0 border border-white/10 shadow-xl">
+                    <div className="w-10 h-10 bg-[var(--color-input)] rounded-lg flex items-center justify-center shrink-0 border border-[var(--color-border)]">
                         <img
                             src="https://lh3.googleusercontent.com/d/1sh3I52WFTUbvX-19WI1u400uuiZ9vgS8"
                             alt="FinRace"

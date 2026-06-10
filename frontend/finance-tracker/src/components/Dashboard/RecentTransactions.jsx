@@ -42,9 +42,9 @@ const RecentTransactions = React.memo(({ transactions, onSeeMore, loading = fals
   return (
     <div className='card h-full flex flex-col'>
       <div className="flex items-start justify-between mb-4 sm:mb-6 flex-shrink-0">
-        <h5 className="text-base sm:text-lg font-bold text-[var(--color-text)] transition-colors duration-200 hover:text-purple-600">Recent Transactions</h5>
+        <h5 className="text-base sm:text-lg font-bold text-[var(--color-text)] transition-colors duration-200 hover:text-primary">Recent Transactions</h5>
         <button
-          className="text-xs sm:text-sm text-[var(--color-text)] opacity-70 hover:opacity-100 hover:text-purple-600 font-medium flex items-center gap-1 transition-all duration-200 hover:gap-2 flex-shrink-0"
+          className="text-xs sm:text-sm text-[var(--color-text)] opacity-70 hover:opacity-100 hover:text-primary font-medium flex items-center gap-1 transition-all duration-200 hover:gap-2 flex-shrink-0"
           onClick={handleSeeMore}
         >
           <span className="hidden xs:inline">See All</span>

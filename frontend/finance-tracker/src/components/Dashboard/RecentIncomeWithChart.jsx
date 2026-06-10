@@ -4,12 +4,10 @@ import { addThousandsSeparator } from "../../utils/helper";
 import Skeleton from "../common/Skeleton";
 
 const COLORS = [
-  "#875CF5",
-  "#FA2C37",
-  "#FF6900",
-  "#4f39f6",
-  "#a78bfa",
-  "#c4b5fd",
+  "#22C55E",
+  "#4ADE80",
+  "#86EFAC",
+  "#BBF7D0",
 ];
 
 const RecentIncomeWithChart = React.memo(({ data, totalIncome, loading = false }) => {
@@ -46,7 +44,7 @@ const RecentIncomeWithChart = React.memo(({ data, totalIncome, loading = false }
   return (
     <div className="card h-full flex flex-col">
       <div className="flex items-start justify-between mb-4 sm:mb-6 flex-shrink-0">
-        <h5 className="text-base sm:text-lg font-bold text-[var(--color-text)] transition-colors duration-200 hover:text-purple-600">
+        <h5 className="text-base sm:text-lg font-bold text-[var(--color-text)] transition-colors duration-200 hover:text-primary">
           Last 60 Days Income
         </h5>
         {loading ? (

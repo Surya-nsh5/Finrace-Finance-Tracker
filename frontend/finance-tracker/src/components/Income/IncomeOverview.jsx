@@ -8,7 +8,7 @@ const IncomeOverview = React.memo(({ chartData, transactions, onAddIncome, addBu
     return <div className="card">
         <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="flex-1 min-w-0">
-                <h5 className="text-base sm:text-lg lg:text-xl font-bold text-[var(--color-text)] mb-1 transition-colors duration-200 hover:text-purple-600">
+                 <h5 className="text-base sm:text-lg lg:text-xl font-bold text-[var(--color-text)] mb-1 transition-colors duration-200 hover:text-primary">
                     Income Overview ({dateRange === 'all' ? 'Lifetime' : `Last ${dateRange} Days`})
                 </h5>
                 <p className="text-xs sm:text-sm text-[var(--color-text)] opacity-60 line-clamp-2">
@@ -24,7 +24,7 @@ const IncomeOverview = React.memo(({ chartData, transactions, onAddIncome, addBu
                             key={range}
                             onClick={() => setDateRange(range)}
                             className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${dateRange === range
-                                ? 'bg-purple-600 text-white shadow'
+                                ? 'bg-primary text-white shadow'
                                 : 'text-[var(--color-text)] opacity-70 hover:opacity-100'
                                 }`}
                         >
@@ -42,7 +42,10 @@ const IncomeOverview = React.memo(({ chartData, transactions, onAddIncome, addBu
         </div>
 
         <div className="mt-2 -mx-2 sm:-mx-4 -mt-2">
-            <CustomBarChart data={chartData || []} />
+            <CustomBarChart
+                data={chartData || []}
+                colors={["#10B981", "#34D399", "#6EE7B7", "#A7F3D0"]}
+            />
         </div>
     </div>
 });

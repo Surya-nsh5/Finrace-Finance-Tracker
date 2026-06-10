@@ -137,7 +137,7 @@ const Expense = () => {
   const addExpenseFooter = (
     <button
       type="button"
-      className="w-full group flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-sm sm:text-base font-semibold rounded-xl shadow-lg shadow-red-500/25 hover:shadow-xl hover:shadow-red-500/30 transition-all duration-120 hover:scale-105 active:scale-95"
+      className="w-full group flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-expense to-expense/90 text-white text-sm sm:text-base font-semibold rounded-xl shadow-lg shadow-expense/25 hover:shadow-xl hover:shadow-expense/30 transition-all duration-120 hover:scale-105 active:scale-95"
       onClick={() => submitHandlerRef.current && submitHandlerRef.current()}
     >
       <LuPlus className="text-base sm:text-lg group-hover:rotate-90 transition-transform duration-120" />

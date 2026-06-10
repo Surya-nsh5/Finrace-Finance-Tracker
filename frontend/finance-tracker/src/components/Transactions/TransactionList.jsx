@@ -50,7 +50,7 @@ const TransactionItem = React.memo(({ transaction, onImageClick, onDeleteConfirm
                     {transaction.image && (
                         <button
                             onClick={() => onImageClick(transaction.image)}
-                            className="text-purple-400 hover:text-purple-600 transition-colors"
+                            className="text-primary hover:text-primary/80 transition-colors"
                             title="View Receipt"
                         >
                             <LuImage size={14} />
@@ -70,7 +70,7 @@ const TransactionItem = React.memo(({ transaction, onImageClick, onDeleteConfirm
                                     onDeleteConfirm(transaction._id, transaction.type);
                                     setDeletingId(null);
                                 }}
-                                className="p-1.5 bg-green-500/10 text-green-500 hover:bg-green-500/20 rounded-md transition"
+                                className="p-1.5 bg-income/10 text-income hover:bg-income/20 rounded-md transition"
                                 title="Confirm Delete"
                             >
                                 <LuCheck size={14} />
@@ -95,7 +95,7 @@ const TransactionItem = React.memo(({ transaction, onImageClick, onDeleteConfirm
                 </div>
 
                 {/* Amount Display */}
-                <div className={`flex items-center gap-1.5 font-extrabold text-sm sm:text-base lg:order-1 ${transaction.type === 'income' ? 'text-green-500' : 'text-red-500'}`}>
+                <div className={`flex items-center gap-1.5 font-extrabold text-sm sm:text-base lg:order-1 ${transaction.type === 'income' ? 'text-income' : 'text-expense'}`}>
                     <span className="whitespace-nowrap">
                         {transaction.type === 'income' ? '+' : '-'}₹{Number(transaction.amount).toLocaleString()}
                     </span>
@@ -128,7 +128,7 @@ const TransactionList = React.memo(({ transactions, loading, onDelete, onRefresh
         return (
             <div className="card">
                 <div className="flex flex-col items-center justify-center py-12">
-                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-200 border-t-purple-600 mb-4"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary/20 border-t-primary mb-4"></div>
                     <p className="text-[var(--color-text)] opacity-60">Loading transactions...</p>
                 </div>
             </div>
@@ -139,8 +139,8 @@ const TransactionList = React.memo(({ transactions, loading, onDelete, onRefresh
         return (
             <div className="card">
                 <div className="flex flex-col items-center justify-center py-12">
-                    <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4">
-                        <LuRefreshCw className="text-purple-600 text-2xl" />
+                    <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mb-4">
+                        <LuRefreshCw className="text-primary text-2xl" />
                     </div>
                     <h3 className="text-lg font-semibold text-[var(--color-text)] mb-2">
                         No transactions yet

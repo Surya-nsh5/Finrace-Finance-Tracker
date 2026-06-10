@@ -31,7 +31,7 @@ const CustomDualLineChart = React.memo(({ data = [], lines = [], xAxisKey = 'dat
     }, []);
 
     // Use passed height or responsive default
-    const chartHeight = height || (isDesktop ? 500 : 350);
+    const chartHeight = height || (isDesktop ? 380 : 300);
 
     const CustomTooltip = React.useCallback(({ active, payload }) => {
         if (active && payload && payload.length) {
@@ -70,24 +70,24 @@ const CustomDualLineChart = React.memo(({ data = [], lines = [], xAxisKey = 'dat
     return (
         <div className="bg-transparent">
             <ResponsiveContainer width="100%" height={chartHeight}>
-                <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                <LineChart data={chartData} margin={isDesktop ? { top: 5, right: 10, left: 0, bottom: 5 } : { top: 5, right: 5, left: -15, bottom: 5 }}>
                     <CartesianGrid
                         strokeDasharray="3 3"
-                        stroke={isDarkMode ? "#374151" : "#e5e7eb"}
+                        stroke={isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#e5e7eb"}
                         opacity={0.5}
                     />
                     <XAxis
                         dataKey={xAxisKey}
-                        tick={{ fontSize: 11, fill: isDarkMode ? "#94a3b8" : "#555" }}
-                        stroke={isDarkMode ? "#4b5563" : "#d1d5db"}
+                        tick={{ fontSize: isDesktop ? 11 : 9, fill: isDarkMode ? "#94A3B8" : "#555" }}
+                        stroke={isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#d1d5db"}
                         tickLine={false}
                     />
                     <YAxis
-                        tick={{ fontSize: 12, fill: isDarkMode ? "#94a3b8" : "#555" }}
-                        stroke={isDarkMode ? "#4b5563" : "#d1d5db"}
+                        tick={{ fontSize: isDesktop ? 12 : 9, fill: isDarkMode ? "#94A3B8" : "#555" }}
+                        stroke={isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#d1d5db"}
                         tickLine={false}
                         tickFormatter={formatYAxisValue}
-                        width={45}
+                        width={isDesktop ? 45 : 35}
                     />
                     <Tooltip content={<CustomTooltip />} cursor={false} />
 

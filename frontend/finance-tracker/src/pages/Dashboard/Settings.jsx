@@ -23,8 +23,6 @@ const Settings = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [openLogoutModal, setOpenLogoutModal] = useState(false);
-    const [openClearDataModal, setOpenClearDataModal] = useState(false);
-    const [isClearingData, setIsClearingData] = useState(false);
 
     // Since ProfilePhotoSelector expects a file object for new uploads or string for existing
     // We need to handle it carefully. 
@@ -114,39 +112,24 @@ const Settings = () => {
         }
     };
 
-    // Handle Clear All Data
-    const handleClearAllData = async () => {
-        setIsClearingData(true);
-        try {
-            // Delete all income
-            await axiosInstance.delete("/api/v1/income/delete-all");
-            // Delete all expenses
-            await axiosInstance.delete("/api/v1/expense/delete-all");
-
-            toast.success("All data cleared successfully");
-            setOpenClearDataModal(false);
-
-            // Optionally refresh the page or redirect to dashboard
-            setTimeout(() => {
-                navigate("/dashboard");
-            }, 1000);
-        } catch (error) {
-            console.error("Error clearing data:", error);
-            toast.error("Failed to clear data");
-        } finally {
-            setIsClearingData(false);
-        }
-    };
 
     return (
         <DashboardLayout activeMenu="Settings">
-            <div className="max-w-6xl mx-auto">
-                <h2 className="text-2xl font-bold text-[var(--color-text)] mb-6">Account Settings</h2>
+            <div className="transition-page transition-colors duration-300">
+                {/* Header */}
+                <div className="mb-6">
+                    <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-2">
+                        Settings
+                    </h1>
+                    <p className="text-[var(--color-text)] opacity-60">
+                        Manage your account settings, profile, and data options
+                    </p>
+                </div>
 
                 {/* Two Column Layout */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                     {/* Profile Settings */}
-                    <div className="bg-[var(--color-card)] rounded-xl shadow-sm border border-[var(--color-border)] p-6">
+                    <div className="card">
                         <h3 className="text-lg font-semibold text-[var(--color-text)] mb-6">Profile Information</h3>
                         <form onSubmit={handleUpdateProfile} className="space-y-6">
 
@@ -155,7 +138,7 @@ const Settings = () => {
                                     image={profilePic}
                                     setImage={setProfilePic}
                                 />
-                                <p className="text-sm text-gray-500 mt-2">Click to change profile photo</p>
+                                <p className="text-sm text-[var(--color-text)] opacity-50 mt-2">Click to change profile photo</p>
                             </div>
 
                             <div className="grid grid-cols-1 gap-6">
@@ -186,7 +169,7 @@ const Settings = () => {
                                 <button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-70"
+                                    className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-70 font-medium cursor-pointer"
                                 >
                                     {isLoading ? "Saving..." : "Save Changes"}
                                 </button>
@@ -195,7 +178,7 @@ const Settings = () => {
                     </div>
 
                     {/* Data Management Section */}
-                    <div className="bg-[var(--color-card)] rounded-xl shadow-sm border border-[var(--color-border)] p-6">
+                    <div className="card">
                         <h3 className="text-lg font-semibold text-[var(--color-text)] mb-6">Data Management</h3>
 
                         <div className="space-y-6">
@@ -206,14 +189,14 @@ const Settings = () => {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <button
                                         onClick={handleDownloadIncome}
-                                        className="flex items-center justify-center gap-2 px-4 py-3 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg font-medium hover:bg-green-200 dark:hover:bg-green-900/50 transition shadow-sm hover:shadow-md"
+                                        className="flex items-center justify-center gap-2 px-4 py-3 bg-income/10 text-income rounded-lg font-medium hover:bg-income/20 transition shadow-sm hover:shadow-md cursor-pointer"
                                     >
                                         <LuDownload className="text-lg" />
                                         <span>Income Data</span>
                                     </button>
                                     <button
                                         onClick={handleDownloadExpense}
-                                        className="flex items-center justify-center gap-2 px-4 py-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg font-medium hover:bg-red-200 dark:hover:bg-red-900/50 transition shadow-sm hover:shadow-md"
+                                        className="flex items-center justify-center gap-2 px-4 py-3 bg-expense/10 text-expense rounded-lg font-medium hover:bg-expense/20 transition shadow-sm hover:shadow-md cursor-pointer"
                                     >
                                         <LuDownload className="text-lg" />
                                         <span>Expense Data</span>
@@ -236,21 +219,15 @@ const Settings = () => {
                 </div>
 
                 {/* Danger Zone */}
-                <div className="bg-[var(--color-card)] rounded-xl shadow-sm border border-[var(--color-border)] p-6">
+                <div className="card">
                     <h3 className="text-lg font-semibold text-[var(--color-text)] mb-4">Danger Zone</h3>
                     <p className="text-sm text-[var(--color-text)] opacity-70 mb-4">
                         These actions are irreversible. Please proceed with caution.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3">
                         <button
-                            onClick={() => setOpenClearDataModal(true)}
-                            className="px-6 py-2 bg-red-600 text-white border border-red-700 rounded-lg hover:bg-red-700 transition-colors w-full sm:w-auto"
-                        >
-                            Clear All Data
-                        </button>
-                        <button
                             onClick={() => setOpenLogoutModal(true)}
-                            className="px-6 py-2 bg-red-50 text-red-600 border border-red-200 rounded-lg hover:bg-red-100 transition-colors w-full sm:w-auto"
+                            className="px-6 py-2 bg-expense/10 text-expense border border-expense/20 rounded-lg hover:bg-expense/20 transition-colors w-full sm:w-auto font-medium cursor-pointer"
                         >
                             Log Out
                         </button>
@@ -274,36 +251,6 @@ const Settings = () => {
                     />
                 </Modal>
 
-                {/* Clear Data Modal */}
-                <Modal isOpen={openClearDataModal} onClose={() => setOpenClearDataModal(false)} title="Clear All Data">
-                    <div className="space-y-4">
-                        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-                            <p className="text-red-800 dark:text-red-200 font-semibold mb-2">⚠️ Warning: This action cannot be undone!</p>
-                            <p className="text-red-700 dark:text-red-300 text-sm">
-                                This will permanently delete all your income and expense records. Your account will remain active, but all transaction data will be lost.
-                            </p>
-                        </div>
-                        <p className="text-[var(--color-text)] text-sm">
-                            Are you absolutely sure you want to clear all your financial data?
-                        </p>
-                        <div className="flex gap-3 justify-end pt-2">
-                            <button
-                                onClick={() => setOpenClearDataModal(false)}
-                                disabled={isClearingData}
-                                className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors disabled:opacity-50"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={handleClearAllData}
-                                disabled={isClearingData}
-                                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
-                            >
-                                {isClearingData ? "Clearing..." : "Yes, Clear All Data"}
-                            </button>
-                        </div>
-                    </div>
-                </Modal>
 
             </div>
         </DashboardLayout>

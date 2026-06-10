@@ -122,7 +122,7 @@ const AIInsights = ({ onRefresh }) => {
       return (
         <div className="bg-[var(--color-card)] rounded-2xl shadow-sm p-6 border border-[var(--color-border)]">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl">
+            <div className="p-2 bg-primary rounded-xl">
               <LuBrain className="text-white text-2xl" />
             </div>
             <h5 className="text-lg font-bold text-[var(--color-text)]">
@@ -130,7 +130,7 @@ const AIInsights = ({ onRefresh }) => {
             </h5>
           </div>
           <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-purple-200 dark:border-purple-900 border-t-purple-600 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary/20 dark:border-primary/10 border-t-primary mx-auto mb-4"></div>
             <p className="text-[var(--color-text)] opacity-60 font-medium">
               Analyzing your financial data...
             </p>
@@ -146,7 +146,7 @@ const AIInsights = ({ onRefresh }) => {
       return (
         <div className="bg-[var(--color-card)] rounded-2xl shadow-sm p-6 border border-[var(--color-border)]">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl">
+            <div className="p-2 bg-primary rounded-xl">
               <LuBrain className="text-white text-2xl" />
             </div>
             <h5 className="text-lg font-bold text-[var(--color-text)]">
@@ -154,8 +154,8 @@ const AIInsights = ({ onRefresh }) => {
             </h5>
           </div>
           <div className="text-center py-8">
-            <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-              <LuBrain className="text-purple-600 dark:text-purple-400 text-3xl" />
+            <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <LuBrain className="text-primary text-3xl" />
             </div>
             <h6 className="text-lg font-semibold text-[var(--color-text)] mb-2">
               Not Enough Data Yet
@@ -167,7 +167,7 @@ const AIInsights = ({ onRefresh }) => {
             </p>
             <button
               onClick={handleRefresh}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition flex items-center gap-2 mx-auto"
+              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition flex items-center gap-2 mx-auto font-medium"
             >
               <LuRefreshCw className="text-lg" />
               Check Again
@@ -181,7 +181,7 @@ const AIInsights = ({ onRefresh }) => {
       return (
         <div className="bg-[var(--color-card)] rounded-2xl shadow-sm p-6 border border-[var(--color-border)]">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl">
+            <div className="p-2 bg-primary rounded-xl">
               <LuBrain className="text-white text-2xl" />
             </div>
             <h5 className="text-lg font-bold text-[var(--color-text)]">
@@ -195,7 +195,7 @@ const AIInsights = ({ onRefresh }) => {
             <p className="text-red-600 dark:text-red-400 mb-4">{error}</p>
             <button
               onClick={handleRefresh}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition flex items-center gap-2 mx-auto"
+              className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition flex items-center gap-2 mx-auto font-medium"
             >
               <LuRefreshCw className="text-lg" />
               Retry
@@ -210,7 +210,7 @@ const AIInsights = ({ onRefresh }) => {
         <div className="bg-[var(--color-card)] rounded-2xl shadow-sm p-6 border border-[var(--color-border)]">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl">
+              <div className="p-2 bg-primary rounded-xl">
                 <LuBrain className="text-white text-2xl" />
               </div>
               <h5 className="text-lg font-bold text-[var(--color-text)]">
@@ -219,8 +219,8 @@ const AIInsights = ({ onRefresh }) => {
             </div>
           </div>
           <div className="text-center py-12">
-            <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-              <LuBrain className="text-purple-600 dark:text-purple-400 text-4xl" />
+            <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <LuBrain className="text-primary text-4xl" />
             </div>
             <h3 className="text-xl font-bold text-[var(--color-text)] mb-2">
               No AI Insights Yet
@@ -231,7 +231,7 @@ const AIInsights = ({ onRefresh }) => {
             <button
               onClick={fetchAIAnalysis}
               disabled={loading}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition flex items-center gap-2 mx-auto font-medium shadow-lg hover:shadow-xl disabled:opacity-50"
+              className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/95 transition flex items-center gap-2 mx-auto font-medium shadow-lg hover:shadow-xl disabled:opacity-50"
             >
               <LuBrain className="text-xl" />
               Generate New Insights
@@ -260,7 +260,7 @@ const AIInsights = ({ onRefresh }) => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl">
+            <div className="p-2 bg-primary rounded-xl">
               <LuBrain className="text-white text-xl sm:text-2xl" />
             </div>
             <div>
@@ -275,7 +275,7 @@ const AIInsights = ({ onRefresh }) => {
           <button
             onClick={handleRefresh}
             disabled={loading}
-            className="w-full sm:w-auto px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition flex items-center justify-center gap-2 font-medium shadow-md hover:shadow-lg disabled:opacity-50"
+            className="w-full sm:w-auto px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition flex items-center justify-center gap-2 font-medium shadow-md hover:shadow-lg disabled:opacity-50"
             title={usageStats ? `${usageStats.insights.remaining} insights remaining` : 'Generate new insights'}
           >
             <LuRefreshCw className={`text-lg ${loading ? 'animate-spin' : ''}`} />
@@ -285,13 +285,13 @@ const AIInsights = ({ onRefresh }) => {
 
         {/* Financial Health Score */}
         {financialHealthScore && (
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-xl p-5 mb-6 border border-purple-100 dark:border-purple-800/30">
+          <div className="bg-[var(--color-input)] rounded-xl p-5 mb-6 border border-[var(--color-border)]">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <p className="text-base text-purple-700 dark:text-purple-300 font-bold mb-1">
+                <p className="text-base text-primary font-bold mb-1">
                   Financial Health Score
                 </p>
-                <p className="text-5xl font-extrabold text-purple-900 dark:text-purple-100">
+                <p className="text-5xl font-extrabold text-[#D4AF37]">
                   {financialHealthScore.score}/100
                 </p>
               </div>
@@ -313,26 +313,26 @@ const AIInsights = ({ onRefresh }) => {
             {financialHealthScore.breakdown && (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
                 <div className="bg-white/60 dark:bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-sm text-purple-700 dark:text-purple-300 font-bold mb-1">
+                  <p className="text-sm text-primary font-bold mb-1">
                     Savings
                   </p>
-                  <p className="text-xl font-extrabold text-purple-900 dark:text-purple-100">
+                  <p className="text-xl font-extrabold text-[var(--color-text)]">
                     {financialHealthScore.breakdown.savingsRate}
                   </p>
                 </div>
                 <div className="bg-white/60 dark:bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-sm text-purple-700 dark:text-purple-300 font-bold mb-1">
+                  <p className="text-sm text-primary font-bold mb-1">
                     Control
                   </p>
-                  <p className="text-xl font-extrabold text-purple-900 dark:text-purple-100">
+                  <p className="text-xl font-extrabold text-[var(--color-text)]">
                     {financialHealthScore.breakdown.expenseControl}
                   </p>
                 </div>
                 <div className="bg-white/60 dark:bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-sm text-purple-700 dark:text-purple-300 font-bold mb-1">
+                  <p className="text-sm text-primary font-bold mb-1">
                     Income
                   </p>
-                  <p className="text-xl font-extrabold text-purple-900 dark:text-purple-100">
+                  <p className="text-xl font-extrabold text-[var(--color-text)]">
                     {financialHealthScore.breakdown.incomeStability}
                   </p>
                 </div>
@@ -511,7 +511,7 @@ const AIInsights = ({ onRefresh }) => {
                 <div
                   key={idx}
                   className={`flex gap-3 items-start p-4 rounded-lg bg-[var(--color-input)] border-2 ${rec.priority === "high"
-                    ? "border-purple-300 dark:border-purple-800"
+                    ? "border-primary/30 dark:border-primary/50"
                     : rec.priority === "medium"
                       ? "border-blue-300 dark:border-blue-800"
                       : "border-gray-300 dark:border-gray-700"
@@ -540,7 +540,7 @@ const AIInsights = ({ onRefresh }) => {
                         </span>
                       )}
                       {rec.priority === "high" && (
-                        <span className="text-xs px-3 py-1 bg-purple-100 dark:bg-purple-900/40 text-purple-900 dark:text-purple-200 rounded-full font-bold">
+                        <span className="text-xs px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary rounded-full font-bold">
                           HIGH PRIORITY
                         </span>
                       )}
@@ -573,9 +573,9 @@ const AIInsights = ({ onRefresh }) => {
               {insights.map((insight, idx) => (
                 <div
                   key={idx}
-                  className="flex gap-3 items-start bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/10 dark:to-blue-900/10 rounded-lg p-4 border border-purple-200 dark:border-purple-800/30"
+                  className="flex gap-3 items-start bg-[var(--color-input)] rounded-lg p-4 border border-[var(--color-border)]"
                 >
-                  <span className="text-purple-600 dark:text-purple-400 font-bold text-xl">
+                  <span className="text-primary font-bold text-xl">
                     •
                   </span>
                   <p className="text-base text-[var(--color-text)] font-medium">
@@ -593,9 +593,19 @@ const AIInsights = ({ onRefresh }) => {
   return (
     <DashboardLayout activeMenu="AI Insights">
       <div className="transition-page transition-colors duration-300">
+        {/* Header */}
+        <div className="mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-2">
+            AI Insights
+          </h1>
+          <p className="text-[var(--color-text)] opacity-60">
+            Get personalized financial suggestions and analysis powered by AI
+          </p>
+        </div>
+
         {/* Usage Stats Header */}
         {usageStats && (
-          <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-xl p-4 mb-6 border border-purple-200 dark:border-purple-800/30">
+          <div className="bg-[var(--color-input)] rounded-xl p-4 mb-6 border border-[var(--color-border)]">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <h3 className="text-sm font-semibold text-[var(--color-text)] mb-1">Daily AI Usage</h3>
@@ -604,7 +614,7 @@ const AIInsights = ({ onRefresh }) => {
               <div className="flex gap-4 sm:gap-6 w-full sm:w-auto justify-around sm:justify-end">
                 <div className="text-center">
                   <p className="text-xs text-[var(--color-text)] opacity-60 mb-1">AI Insights</p>
-                  <p className="text-lg sm:text-xl font-bold text-purple-600 dark:text-purple-400">
+                  <p className="text-lg sm:text-xl font-bold text-primary">
                     {usageStats.insights.used}/{usageStats.insights.limit}
                   </p>
                   <p className="text-xs text-[var(--color-text)] opacity-50">

@@ -13,7 +13,7 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, lege
     : [];
 
   // Ensure colors array exists
-  const chartColors = colors || ["#875cf5", "#FF6900", "#FA2C37"];
+  const chartColors = colors || ["#7C3AED", "#22C55E", "#EF4444"];
 
   // Detect desktop view for larger chart
   const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 1024);
@@ -27,7 +27,7 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, lege
   // If no valid data, show placeholder
   if (chartData.length === 0) {
     return (
-      <div className="w-full flex items-center justify-center" style={{ minHeight: isDesktop ? '450px' : '300px' }}>
+      <div className="w-full flex items-center justify-center" style={{ minHeight: isDesktop ? '300px' : '250px' }}>
         <div className="text-center">
           <p className="text-[var(--color-text)] opacity-40 text-sm">No data available</p>
           <p className="text-[var(--color-text)] opacity-30 text-xs mt-1">Add data to see the chart</p>
@@ -37,8 +37,8 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, lege
   }
 
   return (
-    <div className="w-full" style={{ minHeight: isDesktop ? '400px' : '300px', position: 'relative' }}>
-      <ResponsiveContainer width="100%" height={isDesktop ? 400 : 250}>
+    <div className="w-full" style={{ minHeight: isDesktop ? '300px' : '250px', position: 'relative' }}>
+      <ResponsiveContainer width="100%" height={isDesktop ? 280 : 220}>
         <PieChart>
           <Pie
             data={chartData}
@@ -46,8 +46,8 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, lege
             nameKey="name"
             cx="50%"
             cy="50%"
-            outerRadius={isDesktop ? 150 : 100}
-            innerRadius={showTextAnchor ? (isDesktop ? 110 : 70) : 0}
+            outerRadius={isDesktop ? 135 : 100}
+            innerRadius={showTextAnchor ? (isDesktop ? 100 : 70) : 0}
             labelLine={false}
             startAngle={90}
             endAngle={-270}
@@ -58,7 +58,7 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, lege
               <Cell
                 key={`cell-${index}`}
                 fill={chartColors[index % chartColors.length]}
-                stroke={isDarkMode ? "#1e293b" : "#fff"}
+                stroke={isDarkMode ? "#17171F" : "#fff"}
                 strokeWidth={2}
               />
             ))}
@@ -70,10 +70,10 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, lege
               <text
                 x="50%"
                 y="50%"
-                dy={isDesktop ? -30 : -20}
+                dy={isDesktop ? -15 : -12}
                 textAnchor="middle"
                 fill={isDarkMode ? '#94a3b8' : '#9CA3AF'}
-                fontSize={isDesktop ? "18px" : "14px"}
+                fontSize={isDesktop ? "14px" : "12px"}
                 fontWeight="500"
                 dominantBaseline="middle"
               > {label}
@@ -81,10 +81,10 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, lege
               <text
                 x="50%"
                 y="50%"
-                dy={isDesktop ? 15 : 8}
+                dy={isDesktop ? 15 : 10}
                 textAnchor="middle"
                 fill={isDarkMode ? '#f8fafc' : '#111827'}
-                fontSize={isDesktop ? "36px" : "24px"}
+                fontSize={isDesktop ? "28px" : "20px"}
                 fontWeight="bold"
                 dominantBaseline="middle"
               > {totalAmount}

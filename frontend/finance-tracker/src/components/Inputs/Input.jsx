@@ -15,7 +15,7 @@ const Input = ({ value, onChange, label, placeholder, type, id, name }) => {
                 {label}
             </label>
 
-            <div className={`relative input-box transition-all duration-200 ${isFocused ? 'ring-2 ring-purple-500/50 border-purple-500' : ''}`}>
+            <div className={`relative input-box transition-all duration-200 ${isFocused ? 'ring-2 ring-primary/50 border-primary' : ''}`}>
                 <input
                     id={id}
                     name={name}
@@ -31,7 +31,7 @@ const Input = ({ value, onChange, label, placeholder, type, id, name }) => {
                 {type == 'password' && (
                     <button
                         type="button"
-                        className='text-gray-400 hover:text-purple-600 cursor-pointer transition-colors duration-200'
+                        className='text-gray-400 hover:text-primary cursor-pointer transition-colors duration-200'
                         onClick={() => toggleShowPassword()}
                     >
                         {showPassword ? (

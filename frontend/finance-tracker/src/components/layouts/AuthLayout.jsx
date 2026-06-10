@@ -14,7 +14,7 @@ const AuthLayout = ({ children, showRight = true }) => {
 
       {showRight && (
         <div className="hidden md:block w-[40vw] relative overflow-hidden">
-          <div className="absolute inset-0 bg-[#a277ff]/10 z-10"></div>
+          <div className="absolute inset-0 bg-primary/10 z-10"></div>
           <img
             src="https://lh3.googleusercontent.com/d/1B_rIJzSn0Z9T6jILBwSOo1FflQQvr2ad"
             alt="FinRace Hero"

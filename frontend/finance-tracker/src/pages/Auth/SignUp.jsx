@@ -134,7 +134,7 @@ const Signup = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full px-6 py-3 bg-purple-600 text-white rounded-lg font-medium text-base transition-colors shadow-md hover:shadow-lg ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-purple-700'}`}
+            className={`w-full px-6 py-3 bg-primary text-white rounded-lg font-medium text-base transition-colors shadow-md hover:shadow-lg cursor-pointer ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-primary/90'}`}
           >
             {isLoading ? "Creating Account..." : "Sign up"}
           </button>

@@ -119,10 +119,10 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
             {/* Icon Display/Selector Button */}
             <div
                 ref={containerRef}
-                className="relative group flex items-center gap-3 cursor-pointer p-3 rounded-xl border-2 border-dashed border-[var(--color-border)] hover:border-purple-300 hover:bg-purple-50/50 dark:hover:bg-purple-900/20 transition-all duration-150"
+                className="relative group flex items-center gap-3 cursor-pointer p-3 rounded-xl border-2 border-dashed border-[var(--color-border)] hover:border-primary/50 hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-150"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <div className="w-14 h-14 flex items-center justify-center text-2xl bg-gradient-to-br from-purple-50 to-purple-100 text-purple-600 rounded-xl transition-all duration-200 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-md">
+                <div className="w-14 h-14 flex items-center justify-center text-2xl bg-primary/10 text-primary rounded-xl transition-all duration-200 group-hover:scale-110 group-hover:rotate-6">
                     {icon ? (
                         // Check if icon is a URL (starts with http) or a native emoji
                         icon.startsWith('http') ? (
@@ -136,7 +136,7 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-[var(--color-text)] group-hover:text-purple-600 transition-colors duration-150">
+                    <p className="text-sm font-semibold text-[var(--color-text)] group-hover:text-primary transition-colors duration-150">
                         {icon ? "Change Icon" : "Pick an Icon"}
                     </p>
                     <p className="text-xs text-[var(--color-text)] opacity-40 mt-0.5 truncate">
@@ -144,7 +144,7 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
                     </p>
                 </div>
 
-                <div className="text-[var(--color-text)] opacity-60 group-hover:text-purple-600 transition-colors duration-150 flex-shrink-0">
+                <div className="text-[var(--color-text)] opacity-60 group-hover:text-primary transition-colors duration-150 flex-shrink-0">
                     {isOpen ? (
                         <LuX className="w-5 h-5 animate-fade-in" />
                     ) : (

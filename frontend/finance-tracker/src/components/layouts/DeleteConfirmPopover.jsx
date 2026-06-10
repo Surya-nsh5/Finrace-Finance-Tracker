@@ -47,7 +47,7 @@ const DeleteConfirmPopover = ({ isOpen, onClose, onConfirm, triggerRef }) => {
             className="animate-scale-in"
             style={popoverStyle}
         >
-            <div className="bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden relative" style={{ width: `${popoverWidth}px` }}>
+            <div className="bg-[var(--color-card)] rounded-lg shadow-xl border border-[var(--color-border)] overflow-hidden relative" style={{ width: `${popoverWidth}px` }}>
                 {/* Arrow pointing to the delete button on the right */}
                 <div 
                     className="absolute top-1/2 -translate-y-1/2 w-0 h-0"
@@ -55,24 +55,24 @@ const DeleteConfirmPopover = ({ isOpen, onClose, onConfirm, triggerRef }) => {
                         right: '-10px',
                         borderTop: '10px solid transparent',
                         borderBottom: '10px solid transparent',
-                        borderLeft: '10px solid white',
+                        borderLeft: '10px solid var(--color-card)',
                     }}
                 />
                 <div className="p-4">
-                    <p className="text-sm text-gray-700 mb-4">
+                    <p className="text-sm text-[var(--color-text)] opacity-80 mb-4">
                         Are you sure you want to delete this? This action cannot be undone.
                     </p>
                     <div className="flex justify-end gap-2">
                         <button 
                             type="button"
-                            className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                            className="px-3 py-1.5 text-sm text-[var(--color-text)] opacity-70 hover:opacity-100 hover:bg-[var(--color-input)] rounded-lg transition-all"
                             onClick={onClose}
                         >
                             Cancel
                         </button>
                         <button 
                             type="button"
-                            className="px-3 py-1.5 text-sm bg-red-500 text-white hover:bg-red-600 rounded-lg transition-colors"
+                            className="px-3 py-1.5 text-sm bg-red-600 text-white hover:bg-red-700 rounded-lg transition-colors"
                             onClick={onConfirm}
                         >
                             Delete

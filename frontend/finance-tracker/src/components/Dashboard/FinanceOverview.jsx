@@ -3,8 +3,8 @@ import CustomPieChart from "../Charts/CustomPieChart";
 import { addThousandsSeparator } from "../../utils/helper";
 import Skeleton from "../common/Skeleton";
 
-// Colors: Purple for Balance, Orange for Income, Red for Expenses
-const COLORS = ["#875cf5", "#FF6900", "#FA2C37"];
+// Colors: Purple for Balance, Green for Income, Red for Expenses
+const COLORS = ["#7C3AED", "#22C55E", "#EF4444"];
 
 const FinanceOverview = React.memo(
   ({ totalBalance, totalIncome, totalExpenses, loading = false }) => {
@@ -37,7 +37,7 @@ const FinanceOverview = React.memo(
     return (
       <div className="card h-full flex flex-col">
         <div className="flex items-start justify-between mb-4 sm:mb-6 flex-shrink-0">
-          <h5 className="text-base sm:text-lg font-bold text-[var(--color-text)] transition-colors duration-200 hover:text-purple-600">
+          <h5 className="text-base sm:text-lg font-bold text-[var(--color-text)] transition-colors duration-200 hover:text-primary">
             Financial Overview
           </h5>
         </div>

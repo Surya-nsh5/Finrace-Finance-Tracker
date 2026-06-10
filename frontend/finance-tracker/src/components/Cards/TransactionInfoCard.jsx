@@ -8,7 +8,7 @@ import {
 
 const TransactionInfoCard = React.memo(({ title, icon, date, amount, type, hideDeleteBtn, onDelete, deleteButtonRef }) => {
     const getAmountStyles = () =>
-        type === 'income' ? 'text-green-500' : 'text-red-500';
+        type === 'income' ? 'text-income' : 'text-expense';
 
     const handleDelete = (e) => {
         e.stopPropagation();
