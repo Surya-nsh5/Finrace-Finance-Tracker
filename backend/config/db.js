@@ -10,9 +10,11 @@ const connectDB = async () => {
       throw new Error('MONGO_URI environment variable is not defined');
     }
     await mongoose.connect(process.env.MONGO_URI, {
-      maxPoolSize: 10, // Maintain up to 10 socket connections
-      serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
-      socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+      maxPoolSize: 5, // Lower max connections for serverless environments
+      minPoolSize: 1,
+      serverSelectionTimeoutMS: 5000, 
+      socketTimeoutMS: 45000, 
+      maxIdleTimeMS: 30000 // Close idle connections
     });
     console.log('MongoDB connected');
   } catch (error) {

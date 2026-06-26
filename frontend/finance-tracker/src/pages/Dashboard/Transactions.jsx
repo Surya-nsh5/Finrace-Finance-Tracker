@@ -6,6 +6,7 @@ import Modal from "../../components/layouts/Modal";
 import UnifiedTransactionForm from "../../components/Transactions/UnifiedTransactionForm";
 import { toast } from "react-hot-toast";
 import TransactionList from "../../components/Transactions/TransactionList";
+import useSWR from "swr";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import { LuPlus } from "react-icons/lu";
 import CustomDualLineChart from "../../components/Charts/CustomDualLineChart";
@@ -17,9 +18,6 @@ const Transactions = () => {
     useUserAuth();
     const location = useLocation();
 
-    const [transactions, setTransactions] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const fetchingRef = useRef(false);
     const [openAddModal, setOpenAddModal] = useState(false);
     const submitHandlerRef = useRef(null);
 
@@ -27,45 +25,39 @@ const Transactions = () => {
     const [filterType, setFilterType] = useState(location.state?.activeTab || "all"); // all, income, expense
     const [dateRange, setDateRange] = useState("30"); // "30", "90", "365", "all"
 
-    // Fetch all transactions (both income and expense)
-    const fetchAllTransactions = useCallback(async () => {
-        if (fetchingRef.current) return;
+    // Fetch all transactions (both income and expense) via SWR
+    const fetchTransactionsData = async () => {
+        const [incomeResponse, expenseResponse] = await Promise.all([
+            axiosInstance.get(API_PATHS.INCOME.GET_ALL_INCOME),
+            axiosInstance.get(API_PATHS.EXPENSE.GET_ALL_EXPENSE),
+        ]);
 
-        fetchingRef.current = true;
-        setLoading(true);
+        const incomeData = (Array.isArray(incomeResponse.data) ? incomeResponse.data : []).map(item => ({
+            ...item,
+            type: 'income',
+            title: item.source || item.category,
+        }));
 
-        try {
-            const [incomeResponse, expenseResponse] = await Promise.all([
-                axiosInstance.get(API_PATHS.INCOME.GET_ALL_INCOME),
-                axiosInstance.get(API_PATHS.EXPENSE.GET_ALL_EXPENSE),
-            ]);
+        const expenseData = (Array.isArray(expenseResponse.data) ? expenseResponse.data : []).map(item => ({
+            ...item,
+            type: 'expense',
+            title: item.category || item.source,
+        }));
 
-            const incomeData = (Array.isArray(incomeResponse.data) ? incomeResponse.data : []).map(item => ({
-                ...item,
-                type: 'income',
-                title: item.source || item.category,
-            }));
+        // Combine and sort by date (most recent first)
+        return [...incomeData, ...expenseData].sort((a, b) => {
+            return new Date(b.date) - new Date(a.date);
+        });
+    };
 
-            const expenseData = (Array.isArray(expenseResponse.data) ? expenseResponse.data : []).map(item => ({
-                ...item,
-                type: 'expense',
-                title: item.category || item.source,
-            }));
-
-            // Combine and sort by date (most recent first)
-            const combined = [...incomeData, ...expenseData].sort((a, b) => {
-                return new Date(b.date) - new Date(a.date);
-            });
-
-            setTransactions(combined);
-        } catch (error) {
-            console.error("Error fetching transactions:", error);
-            toast.error("Failed to fetch transactions");
-        } finally {
-            setLoading(false);
-            fetchingRef.current = false;
+    const { data: transactions = [], isLoading: loading, mutate: refreshTransactions } = useSWR(
+        'all_transactions',
+        fetchTransactionsData,
+        {
+            revalidateOnFocus: true,
+            dedupingInterval: 30000
         }
-    }, []);
+    );
 
     // Handle Add Transaction
     const handleAddTransaction = async (transaction) => {
@@ -114,7 +106,7 @@ const Transactions = () => {
 
             setOpenAddModal(false);
             toast.success(`${type === 'income' ? 'Income' : 'Expense'} added successfully`);
-            fetchAllTransactions();
+            refreshTransactions();
         } catch (error) {
             console.error("Error adding transaction:", error);
             toast.error(error.response?.data?.message || "Failed to add transaction");
@@ -130,7 +122,7 @@ const Transactions = () => {
 
             await axiosInstance.delete(endpoint);
             toast.success(`${type === 'income' ? 'Income' : 'Expense'} deleted successfully`);
-            fetchAllTransactions();
+            refreshTransactions();
         } catch (error) {
             console.error("Error deleting transaction:", error);
             toast.error("Failed to delete transaction");
@@ -183,9 +175,8 @@ const Transactions = () => {
         }
     };
 
-    useEffect(() => {
-        fetchAllTransactions();
-    }, [fetchAllTransactions]);
+    // SWR handles initial fetch automatically
+    // Removed useEffect for fetchAllTransactions
 
     // Date filtered transactions
     const dateFilteredTransactions = useMemo(() => {
@@ -404,7 +395,7 @@ const Transactions = () => {
                     transactions={filteredTransactions}
                     loading={loading}
                     onDelete={handleDeleteTransaction}
-                    onRefresh={fetchAllTransactions}
+                    onRefresh={refreshTransactions}
                 />
 
                 {/* Add Transaction Modal */}

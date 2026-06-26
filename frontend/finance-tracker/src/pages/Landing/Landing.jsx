@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useRef, useContext, useState, useEffect } from 'react'
 import { FaDollarSign, FaWallet, FaChartLine, FaLock, FaCheck, FaArrowRight } from 'react-icons/fa'
-import { HiOutlineDownload } from 'react-icons/hi'
+
 import { UserContext } from '../../context/UserContext'
 import Modal from '../../components/layouts/Modal'
 import toast from 'react-hot-toast'
@@ -17,12 +17,6 @@ const Landing = () => {
     const contactRef = useRef(null);
     const { isAuthenticated } = useContext(UserContext);
 
-    // Native App Install State
-    const [openInstallModal, setOpenInstallModal] = useState(false);
-
-    const handleInstallClick = () => {
-        setOpenInstallModal(true);
-    };
 
     // Interactive Sandbox State
     const [sandboxTransactions, setSandboxTransactions] = useState([
@@ -203,13 +197,6 @@ const Landing = () => {
                         <button onClick={() => navigate('/signUp')} className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-xl hover:opacity-95 active:scale-98 transition-all text-lg font-semibold shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group">
                             Start Tracking Free <FaArrowRight className="text-sm transition-transform group-hover:translate-x-1" />
                         </button>
-                        <a
-                            href="/FinRace.apk" download
-                            className="w-full sm:w-auto px-8 py-4 bg-transparent text-primary border border-dashed border-primary/30 rounded-xl hover:bg-primary/5 hover:border-primary/50 transition-all text-lg font-semibold flex items-center justify-center gap-2 cursor-pointer group"
-                        >
-                            <HiOutlineDownload className="text-xl transition-transform group-hover:scale-110" />
-                            <span>Download App</span>
-                        </a>
                     </div>
 
                     {/* Handwritten annotation details */}
@@ -516,50 +503,7 @@ const Landing = () => {
                 </div>
             </footer>
 
-            <Modal isOpen={openInstallModal} onClose={() => setOpenInstallModal(false)} title="Download FinRace App">
-                <div className="space-y-4 text-left">
-                    <p className="text-sm text-[var(--color-text)] opacity-80 mb-4">
-                        Take your finances on the go. Choose your platform below to download the native app.
-                    </p>
-                    
-                    <div className="space-y-4">
-                        <a href="/FinRace.apk" download className="block p-4 bg-[var(--color-input)] hover:bg-white/10 border border-[var(--color-border)] hover:border-primary/50 rounded-xl transition-all cursor-pointer group">
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.022 3.503c-1.4362-.6541-3.0567-1.0207-4.787-1.0207-1.7304 0-3.3508.3666-4.787 1.0207l-2.022-3.503a.4164.4164 0 00-.5676-.1521.416.416 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3436-4.1021-2.6893-7.5743-6.1185-9.4396"/></svg>
-                                </div>
-                                <div className="flex-1">
-                                    <p className="text-base font-bold text-white group-hover:text-primary transition-colors">Download for Android</p>
-                                    <p className="text-xs text-[var(--color-text)] opacity-60">Direct .apk download</p>
-                                </div>
-                                <HiOutlineDownload className="text-xl text-white/40 group-hover:text-primary transition-colors" />
-                            </div>
-                        </a>
 
-                        <a href="#" className="block p-4 bg-[var(--color-input)] hover:bg-white/10 border border-[var(--color-border)] hover:border-[#D4AF37]/50 rounded-xl transition-all cursor-pointer group">
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-lg flex items-center justify-center text-[#D4AF37] group-hover:scale-110 transition-transform">
-                                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M16.365 21.444c-1.127.8-2.316 1.488-3.447 1.493-1.155.006-1.543-.722-2.907-.722-1.353 0-1.8.728-2.903.722-1.16-.005-2.454-.78-3.626-1.688-2.404-1.862-4.133-5.321-3.69-8.483.21-1.493.99-2.736 1.954-3.578 1.11-.976 2.502-1.503 3.864-1.528 1.135-.021 2.215.756 2.923.756.712 0 2.016-.941 3.391-.8 1.107.11 2.115.542 2.825 1.345-2.22 1.353-1.859 4.417.433 5.378-.49 1.433-1.144 2.808-1.817 3.868.513-.263 1.002-.572 1.464-.91.246.772.036 1.637-.464 2.147M15.42 2.556c-.845 1.054-2.144 1.761-3.46 1.664-.176-1.393.435-2.748 1.258-3.79C14.053.407 15.352-.3 15.65.132c.18 1.376-.414 2.716-1.23 3.79M24 0v24H0V0z" fill="none"/></svg>
-                                </div>
-                                <div className="flex-1">
-                                    <p className="text-base font-bold text-white group-hover:text-[#D4AF37] transition-colors">Download on the App Store</p>
-                                    <p className="text-xs text-[var(--color-text)] opacity-60">Coming soon to iOS</p>
-                                </div>
-                                <HiOutlineDownload className="text-xl text-white/40 group-hover:text-[#D4AF37] transition-colors" />
-                            </div>
-                        </a>
-                    </div>
-
-                    <div className="flex justify-end pt-4 mt-4 border-t border-white/5">
-                        <button
-                            onClick={() => setOpenInstallModal(false)}
-                            className="px-6 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition text-sm font-semibold cursor-pointer"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            </Modal>
         </div>
     )
 }

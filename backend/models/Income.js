@@ -9,5 +9,6 @@ const IncomeSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 IncomeSchema.index({ userId: 1, date: -1 });
+IncomeSchema.index({ userId: 1, source: 1 });
 
 module.exports = mongoose.model('Income', IncomeSchema);

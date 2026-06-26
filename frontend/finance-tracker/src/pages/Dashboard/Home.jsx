@@ -1,9 +1,9 @@
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState, useCallback, useRef } from "react";
-import axiosInstance from "../../utils/axiosinstance";
 import { API_PATHS } from "../../utils/apiPaths";
+import useSWR from "swr";
+import { fetcher } from "../../utils/fetcher";
 import InfoCard from "../../components/Cards/InfoCard";
 import { addThousandsSeparator } from "../../utils/helper";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions";
@@ -21,34 +21,10 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const [dashboardData, setDashboardData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const fetchingRef = useRef(false);
-
-  const fetchDashboardData = useCallback(async () => {
-    if (fetchingRef.current) return;
-
-    fetchingRef.current = true;
-    setLoading(true);
-
-    try {
-      const response = await axiosInstance.get(API_PATHS.DASHBOARD.GET_DATA);
-
-      if (response?.data) {
-        setDashboardData(response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching dashboard data:", error);
-      // Handle error appropriately, e.g., show a notification
-    } finally {
-      setLoading(false);
-      fetchingRef.current = false;
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchDashboardData();
-  }, [fetchDashboardData]);
+  const { data: dashboardData, isLoading: loading, error } = useSWR(API_PATHS.DASHBOARD.GET_DATA, fetcher, {
+    revalidateOnFocus: true,
+    dedupingInterval: 60000, // 1 minute deduping to avoid spam
+  });
 
   return (
     <DashboardLayout activeMenu="Dashboard">

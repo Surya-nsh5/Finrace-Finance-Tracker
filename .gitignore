@@ -55,8 +55,3 @@ coverage/
 tmp/
 .cache/
 
-# Lock files (optional — remove if your team commits these)
-package-lock.json
-frontend/finance-tracker/package-lock.json
-backend/package-lock.json
-
