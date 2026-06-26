@@ -3,6 +3,7 @@ const Expense = require('../models/Expense');
 const fs = require('fs');
 const csv = require('csv-parser');
 const stream = require('stream');
+const { clearCache } = require('../utils/cache');
 
 // Add Expense Source
 exports.addExpense = async (req, res) => {
@@ -23,6 +24,7 @@ exports.addExpense = async (req, res) => {
     });
 
     await newExpense.save();
+    clearCache(`dashboard_${userId}`);
     res.status(200).json({ message: 'Expense added successfully', expense: newExpense });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -51,6 +53,7 @@ exports.deleteExpense = async (req, res) => {
       return res.status(404).json({ message: "Expense not found or unauthorized" });
     }
 
+    clearCache(`dashboard_${userId}`);
     res.json({ message: "Expense deleted successfully" })
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -63,6 +66,7 @@ exports.deleteAllExpense = async (req, res) => {
   try {
     const result = await Expense.deleteMany({ userId });
 
+    clearCache(`dashboard_${userId}`);
     res.json({
       message: "All expense records deleted successfully",
       deletedCount: result.deletedCount
@@ -170,6 +174,7 @@ exports.bulkUploadExpenses = async (req, res) => {
           }
         }
 
+        clearCache(`dashboard_${userId}`);
         // Send response
         res.status(200).json({
           message: 'CSV upload completed',

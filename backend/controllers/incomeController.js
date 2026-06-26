@@ -3,6 +3,7 @@ const Income = require('../models/Income');
 const fs = require('fs');
 const csv = require('csv-parser');
 const stream = require('stream');
+const { clearCache } = require('../utils/cache');
 
 // Add Income Source
 exports.addIncome = async (req, res) => {
@@ -23,6 +24,7 @@ exports.addIncome = async (req, res) => {
     });
 
     await newIncome.save();
+    clearCache(`dashboard_${userId}`);
     res.status(200).json({ message: 'Income added successfully', income: newIncome });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -51,6 +53,7 @@ exports.deleteIncome = async (req, res) => {
       return res.status(404).json({ message: "Income not found or unauthorized" });
     }
 
+    clearCache(`dashboard_${userId}`);
     res.json({ message: "Income deleted successfully" })
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -63,6 +66,7 @@ exports.deleteAllIncome = async (req, res) => {
   try {
     const result = await Income.deleteMany({ userId });
 
+    clearCache(`dashboard_${userId}`);
     res.json({
       message: "All income records deleted successfully",
       deletedCount: result.deletedCount
@@ -171,6 +175,7 @@ exports.bulkUploadIncome = async (req, res) => {
         }
 
         // Delete uploaded file after processing
+        clearCache(`dashboard_${userId}`);
         // Send response
         res.status(200).json({
           message: 'CSV upload completed',

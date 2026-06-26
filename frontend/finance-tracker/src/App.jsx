@@ -93,6 +93,8 @@ const AppContent = () => {
   );
 };
 
+import { SpeedInsights } from "@vercel/speed-insights/react";
+
 const App = () => {
   return (
     <UserProvider>
@@ -106,6 +108,7 @@ const App = () => {
             },
           }}
         />
+        <SpeedInsights />
       </ThemeProvider>
     </UserProvider>
   );

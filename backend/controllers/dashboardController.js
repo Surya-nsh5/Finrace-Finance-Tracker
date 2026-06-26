@@ -115,8 +115,8 @@ exports.getDashboardData = async (req, res) => {
       };
     }, 60); // 60 seconds cache
 
-    // Set Vercel Edge Cache headers
-    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=30');
+    // Prevent Vercel Edge Cache from serving stale data when the backend has been updated
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     
     // Construct unified dashboard response
     res.json(dashboardData);

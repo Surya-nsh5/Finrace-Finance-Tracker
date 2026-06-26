@@ -55,7 +55,7 @@ const Transactions = () => {
         fetchTransactionsData,
         {
             revalidateOnFocus: true,
-            dedupingInterval: 30000
+            dedupingInterval: 2000
         }
     );
 

@@ -4,6 +4,7 @@ const Expense = require('../models/Expense');
 const fs = require('fs');
 const csv = require('csv-parser');
 const stream = require('stream');
+const { clearCache } = require('../utils/cache');
 
 // Unified Bulk Upload for Income and Expense
 exports.bulkUploadUnified = async (req, res) => {
@@ -85,6 +86,7 @@ exports.bulkUploadUnified = async (req, res) => {
                     }
                 }
 
+                clearCache(`dashboard_${userId}`);
                 // Send response
                 res.status(200).json({
                     message: 'Unified CSV upload completed',

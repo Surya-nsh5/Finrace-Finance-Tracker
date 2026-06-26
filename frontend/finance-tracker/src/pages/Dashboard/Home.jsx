@@ -23,7 +23,7 @@ const Home = () => {
 
   const { data: dashboardData, isLoading: loading, error } = useSWR(API_PATHS.DASHBOARD.GET_DATA, fetcher, {
     revalidateOnFocus: true,
-    dedupingInterval: 60000, // 1 minute deduping to avoid spam
+    dedupingInterval: 2000, // 2 seconds deduping for real-time updates
   });
   if (loading && !dashboardData) {
     return (
