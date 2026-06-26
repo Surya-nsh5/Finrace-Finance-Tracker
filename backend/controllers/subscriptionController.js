@@ -15,16 +15,22 @@ exports.getCurrentPlan = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json({ message: 'User not found' });
-
     const currentMonth = moment().format('YYYY-MM');
 
+    // Run independent database queries in parallel for maximum performance
+    const [user, usageResult, billingHistory] = await Promise.all([
+      User.findById(userId).lean(),
+      Usage.findOne({ userId, currentMonth }),
+      BillingHistory.find({ userId }).sort({ invoiceDate: -1 }).lean()
+    ]);
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
     // Get or initialize monthly usage tracking
-    let usage = await Usage.findOne({ userId: user._id, currentMonth });
+    let usage = usageResult;
     if (!usage) {
       usage = new Usage({
-        userId: user._id,
+        userId,
         currentMonth,
         insightsUsed: 0,
         billScansUsed: 0
@@ -33,9 +39,6 @@ exports.getCurrentPlan = async (req, res) => {
     }
 
     const limits = PLAN_LIMITS[user.subscriptionPlan || 'Free'];
-
-    // Fetch billing history logs
-    const billingHistory = await BillingHistory.find({ userId: user._id }).sort({ invoiceDate: -1 });
 
     res.json({
       plan: user.subscriptionPlan || 'Free',

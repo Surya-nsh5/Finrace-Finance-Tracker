@@ -8,8 +8,7 @@ import axiosInstance from "../../utils/axiosinstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import LogoutConfirm from "../../components/layouts/LogoutConfirm";
-import Modal from "../../components/layouts/Modal";
+
 import CSVBulkUpload from "../../components/Inputs/CSVBulkUpload";
 import { LuDownload } from "react-icons/lu";
 
@@ -22,7 +21,7 @@ const Settings = () => {
     const [profilePic, setProfilePic] = useState(user?.profileImageUrl || null);
 
     const [isLoading, setIsLoading] = useState(false);
-    const [openLogoutModal, setOpenLogoutModal] = useState(false);
+
 
     // Since ProfilePhotoSelector expects a file object for new uploads or string for existing
     // We need to handle it carefully. 
@@ -218,38 +217,7 @@ const Settings = () => {
                     </div>
                 </div>
 
-                {/* Danger Zone */}
-                <div className="card">
-                    <h3 className="text-lg font-semibold text-[var(--color-text)] mb-4">Danger Zone</h3>
-                    <p className="text-sm text-[var(--color-text)] opacity-70 mb-4">
-                        These actions are irreversible. Please proceed with caution.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-3">
-                        <button
-                            onClick={() => setOpenLogoutModal(true)}
-                            className="px-6 py-2 bg-expense/10 text-expense border border-expense/20 rounded-lg hover:bg-expense/20 transition-colors w-full sm:w-auto font-medium cursor-pointer"
-                        >
-                            Log Out
-                        </button>
-                    </div>
-                </div>
 
-                {/* Logout Modal */}
-                <Modal isOpen={openLogoutModal} onClose={() => setOpenLogoutModal(false)} title="Logout">
-                    <LogoutConfirm
-                        onCancel={() => setOpenLogoutModal(false)}
-                        onLogout={() => {
-                            try {
-                                localStorage.clear();
-                            } catch {
-                                // Ignore localStorage errors
-                            }
-                            clearUser();
-                            setOpenLogoutModal(false);
-                            navigate('/');
-                        }}
-                    />
-                </Modal>
 
 
             </div>

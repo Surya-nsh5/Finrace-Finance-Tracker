@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import CharAvatar from '../Cards/CharAvatar';
 import Modal from './Modal';
 import LogoutConfirm from './LogoutConfirm';
+import { LuLogOut } from 'react-icons/lu';
 
 
 const SideMenu = ({ activeMenu }) => {
@@ -28,7 +29,7 @@ const SideMenu = ({ activeMenu }) => {
         <div className="w-full h-full bg-[var(--color-card)] border-r border-[var(--color-border)] p-5 flex flex-col overflow-y-auto transition-colors duration-300">
             {/* Logo and Title */}
             <div className="flex items-center gap-2 mb-4 cursor-pointer" onClick={() => navigate('/dashboard')}>
-                <img src="https://lh3.googleusercontent.com/d/1sh3I52WFTUbvX-19WI1u400uuiZ9vgS8" alt="FinRace Logo" className="w-8 h-8" referrerPolicy="no-referrer" />
+                <img src="/favicon.png" alt="FinRace Logo" className="w-8 h-8" />
                 <h1 className="text-xl font-bold text-[var(--color-text)] tracking-tight">FINRACE</h1>
             </div>
 
@@ -70,6 +71,17 @@ const SideMenu = ({ activeMenu }) => {
                 ))}
             </div>
 
+            {/* Log Out Button at the bottom */}
+            <div className="mt-4 pt-4 border-t border-[var(--color-border)]">
+                <button
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg font-medium border border-expense/50 text-expense hover:bg-expense/10 transition-all duration-200"
+                    onClick={() => setOpenLogoutModal(true)}
+                >
+                    <LuLogOut className="text-xl" />
+                    <span>Log Out</span>
+                </button>
+            </div>
+
 
             <Modal isOpen={openLogoutModal} onClose={() => setOpenLogoutModal(false)} title="Logout">
                 <LogoutConfirm
@@ -77,7 +89,7 @@ const SideMenu = ({ activeMenu }) => {
                     onLogout={() => {
                         clearUser();
                         setOpenLogoutModal(false);
-                        navigate('/');
+                        navigate('/login');
                     }}
                 />
             </Modal>

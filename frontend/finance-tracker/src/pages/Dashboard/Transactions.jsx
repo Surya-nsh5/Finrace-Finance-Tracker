@@ -196,13 +196,15 @@ const Transactions = () => {
     }, [dateFilteredTransactions, filterType]);
 
     // Calculate totals based on date range
-    const totalIncome = dateFilteredTransactions
-        .filter(t => t.type === 'income')
-        .reduce((sum, t) => sum + Number(t.amount), 0);
-
-    const totalExpense = dateFilteredTransactions
-        .filter(t => t.type === 'expense')
-        .reduce((sum, t) => sum + Number(t.amount), 0);
+    const { totalIncome, totalExpense } = useMemo(() => {
+        let inc = 0;
+        let exp = 0;
+        dateFilteredTransactions.forEach(t => {
+            if (t.type === 'income') inc += Number(t.amount);
+            else if (t.type === 'expense') exp += Number(t.amount);
+        });
+        return { totalIncome: inc, totalExpense: exp };
+    }, [dateFilteredTransactions]);
 
     // Prepare chart data - group by date
     const chartData = useMemo(() => {
@@ -260,6 +262,18 @@ const Transactions = () => {
 
         return Object.values(dataMap);
     }, [dateFilteredTransactions, dateRange]);
+    if (loading && transactions.length === 0) {
+        return (
+            <DashboardLayout activeMenu="Transactions">
+                <div className="space-y-6 animate-pulse">
+                    <div className="w-48 h-8 bg-white/5 rounded-md mb-2"></div>
+                    <div className="w-64 h-4 bg-white/5 rounded-md mb-8"></div>
+                    <div className="card min-h-[350px] bg-white/5 border border-white/10"></div>
+                    <div className="card min-h-[400px] bg-white/5 border border-white/10"></div>
+                </div>
+            </DashboardLayout>
+        );
+    }
 
     return (
         <DashboardLayout activeMenu="Transactions">
@@ -333,6 +347,7 @@ const Transactions = () => {
 
                     <div className="bg-[var(--color-bg)] rounded-2xl p-1.5 sm:p-6 border border-[var(--color-border)] shadow-inner">
                         <CustomDualLineChart
+                            key={dateRange}
                             data={chartData}
                             lines={[
                                 { dataKey: "income", stroke: "#22C55E", name: "Income", strokeWidth: 3 },

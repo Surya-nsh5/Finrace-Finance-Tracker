@@ -102,15 +102,7 @@ const Subscription = () => {
     }
   };
 
-  if (loading && !subData) {
-    return (
-      <DashboardLayout activeMenu="Subscription">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-[#D4AF37]"></div>
-        </div>
-      </DashboardLayout>
-    );
-  }
+
 
   const currentPlan = subData?.plan || 'Free';
   const insightsPercent = subData ? Math.min(100, (subData.insightsUsed / subData.insightsLimit) * 100) : 0;

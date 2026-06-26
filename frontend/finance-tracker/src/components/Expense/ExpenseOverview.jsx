@@ -42,7 +42,7 @@ const ExpenseOverview = React.memo(({ chartData, transactions, onAddExpense, add
         </div>
 
         <div className="mt-4 sm:mt-6">
-            <CustomLineChart data={chartData || []} />
+            <CustomLineChart key={dateRange} data={chartData || []} />
         </div>
     </div>
 });

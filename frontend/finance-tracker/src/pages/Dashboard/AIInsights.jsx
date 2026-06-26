@@ -9,6 +9,12 @@ import {
   LuTrendingUp,
   LuTrendingDown,
   LuX,
+  LuTriangleAlert,
+  LuCircleCheck,
+  LuCircleArrowDown,
+  LuLightbulb,
+  LuCircleMinus,
+  LuChevronRight,
 } from "react-icons/lu";
 import toast from "react-hot-toast";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
@@ -128,23 +134,58 @@ const AIInsights = ({ onRefresh }) => {
   const renderContent = () => {
     if (loading) {
       return (
-        <div className="bg-[var(--color-card)] rounded-2xl shadow-sm p-6 border border-[var(--color-border)]">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-primary rounded-xl">
-              <LuBrain className="text-white text-2xl" />
-            </div>
-            <h5 className="text-lg font-bold text-[var(--color-text)]">
-              AI Financial Insights
-            </h5>
+        <div className="space-y-6 animate-pulse">
+          {/* Top Action Row Skeleton */}
+          <div className="flex justify-end">
+            <div className="w-40 h-10 bg-[var(--color-input)] rounded-full"></div>
           </div>
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary/20 dark:border-primary/10 border-t-primary mx-auto mb-4"></div>
-            <p className="text-[var(--color-text)] opacity-60 font-medium">
-              Analyzing your financial data...
-            </p>
-            <p className="text-sm text-[var(--color-text)] opacity-40 mt-2">
-              This may take a few seconds
-            </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Financial Health Score Skeleton */}
+            <div className="bg-[var(--color-card)] rounded-2xl p-6 border border-[var(--color-border)] shadow-sm flex flex-col justify-between h-48">
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <div className="w-32 h-4 bg-[var(--color-input)] rounded mb-3"></div>
+                  <div className="w-48 h-10 bg-[var(--color-input)] rounded"></div>
+                </div>
+                <div className="w-20 h-6 bg-[var(--color-input)] rounded-full"></div>
+              </div>
+              <div className="grid grid-cols-3 gap-2 mt-auto">
+                <div className="h-16 bg-[var(--color-input)] rounded-xl"></div>
+                <div className="h-16 bg-[var(--color-input)] rounded-xl"></div>
+                <div className="h-16 bg-[var(--color-input)] rounded-xl"></div>
+              </div>
+            </div>
+
+            {/* Next Month Prediction Skeleton */}
+            <div className="bg-[var(--color-card)] rounded-2xl p-6 border border-[var(--color-border)] shadow-sm flex flex-col justify-between h-48">
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <div className="w-36 h-4 bg-[var(--color-input)] rounded mb-3"></div>
+                  <div className="w-48 h-10 bg-[var(--color-input)] rounded"></div>
+                </div>
+                <div className="w-24 h-8 bg-[var(--color-input)] rounded-full"></div>
+              </div>
+              <div className="h-12 bg-[var(--color-input)] rounded-xl mt-auto"></div>
+            </div>
+          </div>
+
+          {/* Artificial "Thinking" UI */}
+          <div className="bg-[var(--color-card)] rounded-2xl p-8 border border-[var(--color-border)] shadow-sm text-center">
+            <div className="relative w-16 h-16 mx-auto mb-6 mt-4">
+              <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping"></div>
+              <div className="absolute inset-0 flex items-center justify-center bg-primary/20 rounded-full z-10">
+                <LuBrain className="text-primary text-3xl animate-pulse" />
+              </div>
+            </div>
+            <h3 className="text-lg font-bold text-[var(--color-text)] mb-3 animate-pulse">
+              FinRace is analyzing your finances...
+            </h3>
+            <div className="w-full max-w-md mx-auto space-y-2 mb-4">
+              <div className="h-2 bg-[var(--color-input)] rounded w-full"></div>
+              <div className="h-2 bg-[var(--color-input)] rounded w-5/6 mx-auto"></div>
+              <div className="h-2 bg-[var(--color-input)] rounded w-4/6 mx-auto"></div>
+            </div>
           </div>
         </div>
       );
@@ -264,222 +305,156 @@ const AIInsights = ({ onRefresh }) => {
     } = analysis;
 
     return (
-      <div className="bg-[var(--color-card)] rounded-2xl shadow-sm p-6 border border-[var(--color-border)]">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary rounded-xl">
-              <LuBrain className="text-white text-xl sm:text-2xl" />
-            </div>
-            <div>
-              <h5 className="text-xl sm:text-2xl font-extrabold text-[var(--color-text)]">
-                AI Financial Insights
-              </h5>
-              <p className="text-xs sm:text-sm text-[var(--color-text)] opacity-60 font-medium">
-                Powered by Gemini AI
-              </p>
-            </div>
-          </div>
+      <div className="space-y-6">
+        {/* Top Action Row */}
+        <div className="flex justify-end">
           <button
             onClick={handleRefresh}
             disabled={loading}
-            className="w-full sm:w-auto px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition flex items-center justify-center gap-2 font-medium shadow-md hover:shadow-lg disabled:opacity-50"
+            className="px-5 py-2.5 bg-primary/10 text-primary border border-primary/20 rounded-full hover:bg-primary/20 transition flex items-center justify-center gap-2 font-medium shadow-sm disabled:opacity-50 cursor-pointer"
             title={usageStats ? `${usageStats.insights.remaining} insights remaining` : 'Generate new insights'}
           >
-            <LuRefreshCw className={`text-lg ${loading ? 'animate-spin' : ''}`} />
-            <span>Generate New</span>
+            <LuRefreshCw className={`text-sm ${loading ? 'animate-spin' : ''}`} />
+            <span className="text-sm">Refresh Insights</span>
           </button>
         </div>
 
-        {/* Financial Health Score */}
-        {financialHealthScore && (
-          <div className="bg-[var(--color-input)] rounded-xl p-5 mb-6 border border-[var(--color-border)]">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <p className="text-base text-primary font-bold mb-1">
-                  Financial Health Score
-                </p>
-                <p className="text-5xl font-extrabold text-[#D4AF37]">
-                  {financialHealthScore.score}/100
-                </p>
-              </div>
-              <div className="text-right">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Financial Health Score */}
+          {financialHealthScore && (
+            <div className="bg-[var(--color-card)] rounded-2xl p-6 border border-[var(--color-border)] shadow-sm flex flex-col justify-between">
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <p className="text-sm text-[var(--color-text)] opacity-60 font-medium mb-1">
+                    Financial Health Score
+                  </p>
+                  <p className="text-4xl font-bold text-[var(--color-text)]">
+                    {financialHealthScore.score}<span className="text-xl opacity-40">/100</span>
+                  </p>
+                </div>
                 <span
-                  className={`inline-block px-4 py-2 rounded-full text-base font-bold ${financialHealthScore.rating === "excellent"
-                    ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
-                    : financialHealthScore.rating === "good"
-                      ? "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
-                      : financialHealthScore.rating === "fair"
-                        ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300"
-                        : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
+                  className={`px-3 py-1 rounded-full text-xs font-bold ${financialHealthScore.rating === "excellent" ? "bg-green-500/10 text-green-500 border border-green-500/20" :
+                    financialHealthScore.rating === "good" ? "bg-blue-500/10 text-blue-500 border border-blue-500/20" :
+                      financialHealthScore.rating === "fair" ? "bg-yellow-500/10 text-yellow-500 border border-yellow-500/20" :
+                        "bg-red-500/10 text-red-500 border border-red-500/20"
                     }`}
                 >
                   {financialHealthScore.rating.toUpperCase()}
                 </span>
               </div>
-            </div>
-            {financialHealthScore.breakdown && (
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
-                <div className="bg-white/60 dark:bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-sm text-primary font-bold mb-1">
-                    Savings
-                  </p>
-                  <p className="text-xl font-extrabold text-[var(--color-text)]">
-                    {financialHealthScore.breakdown.savingsRate}
-                  </p>
-                </div>
-                <div className="bg-white/60 dark:bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-sm text-primary font-bold mb-1">
-                    Control
-                  </p>
-                  <p className="text-xl font-extrabold text-[var(--color-text)]">
-                    {financialHealthScore.breakdown.expenseControl}
-                  </p>
-                </div>
-                <div className="bg-white/60 dark:bg-white/5 rounded-lg p-3 text-center">
-                  <p className="text-sm text-primary font-bold mb-1">
-                    Income
-                  </p>
-                  <p className="text-xl font-extrabold text-[var(--color-text)]">
-                    {financialHealthScore.breakdown.incomeStability}
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
 
-        {/* Next Month Prediction */}
-        {nextMonthExpensePrediction && (
-          <div className="mb-6">
-            <div className="flex items-center justify-between bg-[var(--color-input)] rounded-xl p-4 border border-[var(--color-border)]">
-              <div>
-                <p className="text-base text-[var(--color-text)] font-bold mb-1 opacity-80">
-                  Next Month Predicted Expenses
-                </p>
-                <p className="text-3xl font-extrabold text-[var(--color-text)]">
-                  ₹
-                  {addThousandsSeparator(
-                    Math.round(nextMonthExpensePrediction.total),
-                  )}
-                </p>
-              </div>
-              <div className="text-right">
-                <div className="flex items-center gap-2 mb-1">
+              {financialHealthScore.breakdown && (
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="bg-[var(--color-input)] rounded-xl p-3 text-center border border-[var(--color-border)]/50">
+                    <p className="text-xs text-[var(--color-text)] opacity-60 mb-1">Savings</p>
+                    <p className="text-sm font-semibold text-[var(--color-text)]">{financialHealthScore.breakdown.savingsRate}</p>
+                  </div>
+                  <div className="bg-[var(--color-input)] rounded-xl p-3 text-center border border-[var(--color-border)]/50">
+                    <p className="text-xs text-[var(--color-text)] opacity-60 mb-1">Control</p>
+                    <p className="text-sm font-semibold text-[var(--color-text)]">{financialHealthScore.breakdown.expenseControl}</p>
+                  </div>
+                  <div className="bg-[var(--color-input)] rounded-xl p-3 text-center border border-[var(--color-border)]/50">
+                    <p className="text-xs text-[var(--color-text)] opacity-60 mb-1">Income</p>
+                    <p className="text-sm font-semibold text-[var(--color-text)]">{financialHealthScore.breakdown.incomeStability}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Next Month Prediction */}
+          {nextMonthExpensePrediction && (
+            <div className="bg-[var(--color-card)] rounded-2xl p-6 border border-[var(--color-border)] shadow-sm flex flex-col justify-between">
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <p className="text-sm text-[var(--color-text)] opacity-60 font-medium mb-1">
+                    Predicted Expenses
+                  </p>
+                  <p className="text-4xl font-bold text-[var(--color-text)]">
+                    ₹{addThousandsSeparator(Math.round(nextMonthExpensePrediction.total))}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1.5 bg-[var(--color-input)] px-3 py-1.5 rounded-full border border-[var(--color-border)]/50">
                   {nextMonthExpensePrediction.trend === "increasing" ? (
-                    <LuTrendingUp className="text-red-500 text-2xl" />
+                    <LuTrendingUp className="text-red-500 text-sm" />
                   ) : nextMonthExpensePrediction.trend === "decreasing" ? (
-                    <LuTrendingDown className="text-green-500 text-2xl" />
-                  ) : null}
-                  <span
-                    className={`text-base font-bold ${nextMonthExpensePrediction.trend === "increasing"
-                      ? "text-red-600 dark:text-red-400"
-                      : nextMonthExpensePrediction.trend === "decreasing"
-                        ? "text-green-600 dark:text-green-400"
-                        : "text-[var(--color-text)]"
-                      }`}
-                  >
+                    <LuTrendingDown className="text-green-500 text-sm" />
+                  ) : <LuCircleMinus className="text-gray-500 text-sm" />}
+                  <span className="text-xs font-semibold capitalize text-[var(--color-text)]">
                     {nextMonthExpensePrediction.trend}
                   </span>
                 </div>
-                <p className="text-sm text-[var(--color-text)] opacity-60 font-semibold">
-                  Confidence: {nextMonthExpensePrediction.confidence}%
-                </p>
+              </div>
+              <div className="bg-[var(--color-input)] rounded-xl p-4 border border-[var(--color-border)]/50 flex items-center justify-between">
+                <span className="text-sm text-[var(--color-text)] opacity-70">AI Confidence Score</span>
+                <span className="text-sm font-bold text-[var(--color-text)]">{nextMonthExpensePrediction.confidence}%</span>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Warning Flags */}
         {warningFlags && warningFlags.length > 0 && (
-          <div className="mb-6">
-            <h6 className="text-lg font-bold text-[var(--color-text)] mb-3 flex items-center gap-2">
-              <span className="text-red-500 text-2xl">⚠️</span>
-              Alerts & Warnings
+          <div className="space-y-3 mt-8">
+            <h6 className="text-sm font-semibold text-[var(--color-text)] opacity-70 uppercase tracking-wider mb-4">
+              Attention Required
             </h6>
-            <div className="space-y-2">
-              {warningFlags.map((warning, idx) => (
-                <div
-                  key={idx}
-                  className="flex gap-3 items-start bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/30 rounded-lg p-3"
-                >
-                  <span className="text-red-500 dark:text-red-400 font-bold text-2xl">⚠️</span>
-                  <p className="text-base text-red-800 dark:text-red-200 font-medium">
-                    {warning}
-                  </p>
+            {warningFlags.map((warning, idx) => (
+              <div
+                key={idx}
+                className="flex gap-4 items-center bg-red-500/5 border border-red-500/20 rounded-xl p-4"
+              >
+                <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
+                  <LuTriangleAlert className="text-red-500 text-sm" />
                 </div>
-              ))}
-            </div>
+                <p className="text-sm text-[var(--color-text)] font-medium leading-relaxed">
+                  {warning}
+                </p>
+              </div>
+            ))}
           </div>
         )}
 
         {/* Overspending Categories */}
         {spendingAnalysis?.overSpendingCategories &&
           spendingAnalysis.overSpendingCategories.length > 0 && (
-            <div className="mb-6">
-              <h6 className="text-lg font-bold text-[var(--color-text)] mb-3">
+            <div className="space-y-3 mt-8">
+              <h6 className="text-sm font-semibold text-[var(--color-text)] opacity-70 uppercase tracking-wider mb-4">
                 Categories to Control
               </h6>
-              <div className="space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {spendingAnalysis.overSpendingCategories.map((cat, idx) => (
                   <div
                     key={idx}
-                    className={`p-4 rounded-lg border-l-4 bg-[var(--color-input)] border-[var(--color-border)] ${cat.severity === "high"
-                      ? "border-l-red-500"
-                      : cat.severity === "medium"
-                        ? "border-l-yellow-500"
-                        : "border-l-orange-500"
-                      }`}
+                    className="p-5 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-sm flex flex-col gap-4"
                   >
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center justify-between">
                       <p className="text-base font-bold text-[var(--color-text)]">
                         {cat.category}
                       </p>
                       <span
-                        className={`text-sm px-2 py-1 rounded-full font-bold ${cat.severity === "high"
-                          ? "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
-                          : cat.severity === "medium"
-                            ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300"
-                            : "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300"
+                        className={`text-xs px-2.5 py-1 rounded-md font-bold ${cat.severity === "high" ? "bg-red-500/10 text-red-500" :
+                          cat.severity === "medium" ? "bg-yellow-500/10 text-yellow-500" :
+                            "bg-orange-500/10 text-orange-500"
                           }`}
                       >
                         {cat.severity.toUpperCase()}
                       </span>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2">
+                    <div className="flex items-center justify-between bg-[var(--color-input)] p-3 rounded-xl border border-[var(--color-border)]/50">
                       <div>
-                        <p className="text-sm text-[var(--color-text)] opacity-60 font-medium">
-                          Current Spending
-                        </p>
-                        <p className="text-lg font-extrabold text-[var(--color-text)]">
-                          ₹
-                          {addThousandsSeparator(
-                            Math.round(cat.currentSpending),
-                          )}
-                        </p>
+                        <p className="text-xs text-[var(--color-text)] opacity-60 font-medium mb-1">Spent</p>
+                        <p className="text-sm font-bold text-[var(--color-text)]">₹{addThousandsSeparator(Math.round(cat.currentSpending))}</p>
                       </div>
-                      <div>
-                        <p className="text-sm text-[var(--color-text)] opacity-60 font-medium">
-                          Recommended
-                        </p>
-                        <p className="text-lg font-extrabold text-green-700 dark:text-green-400">
-                          ₹
-                          {addThousandsSeparator(
-                            Math.round(cat.recommendedBudget),
-                          )}
-                        </p>
+                      <div className="w-px h-6 bg-[var(--color-border)]/50"></div>
+                      <div className="text-right">
+                        <p className="text-xs text-[var(--color-text)] opacity-60 font-medium mb-1">Budget</p>
+                        <p className="text-sm font-bold text-green-500">₹{addThousandsSeparator(Math.round(cat.recommendedBudget))}</p>
                       </div>
                     </div>
-                    <div className="bg-white/50 dark:bg-black/20 rounded px-3 py-2">
-                      <p className="text-sm text-[var(--color-text)] font-medium">
-                        💡 Potential Savings:{" "}
-                        <span className="text-base font-extrabold text-green-700 dark:text-green-400">
-                          ₹
-                          {addThousandsSeparator(
-                            Math.round(cat.savingsPotential),
-                          )}
-                        </span>
-                      </p>
+                    <div className="flex items-center gap-2 text-sm text-[var(--color-text)] font-medium">
+                      <LuLightbulb className="text-green-500" />
+                      <span>Potential Savings: <span className="text-green-500 font-bold">₹{addThousandsSeparator(Math.round(cat.savingsPotential))}</span></span>
                     </div>
                   </div>
                 ))}
@@ -490,18 +465,18 @@ const AIInsights = ({ onRefresh }) => {
         {/* Efficient Categories */}
         {spendingAnalysis?.efficientCategories &&
           spendingAnalysis.efficientCategories.length > 0 && (
-            <div className="mb-6">
-              <h6 className="text-lg font-bold text-[var(--color-text)] mb-3 flex items-center gap-2">
-                <span className="text-green-500 text-2xl">✓</span>
+            <div className="space-y-3 mt-8">
+              <h6 className="text-sm font-semibold text-[var(--color-text)] opacity-70 uppercase tracking-wider mb-4">
                 Well-Managed Categories
               </h6>
               <div className="flex flex-wrap gap-2">
                 {spendingAnalysis.efficientCategories.map((cat, idx) => (
                   <span
                     key={idx}
-                    className="px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded-full text-base font-bold border border-green-200 dark:border-green-800/30"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500/10 text-green-500 rounded-lg text-sm font-semibold border border-green-500/20"
                   >
-                    ✓ {cat}
+                    <LuCircleCheck className="text-sm" />
+                    {cat}
                   </span>
                 ))}
               </div>
@@ -510,61 +485,49 @@ const AIInsights = ({ onRefresh }) => {
 
         {/* Recommendations */}
         {recommendations && recommendations.length > 0 && (
-          <div className="mb-6">
-            <h6 className="text-lg font-bold text-[var(--color-text)] mb-3">
+          <div className="space-y-3 mt-8">
+            <h6 className="text-sm font-semibold text-[var(--color-text)] opacity-70 uppercase tracking-wider mb-4">
               AI Recommendations
             </h6>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {recommendations.slice(0, 5).map((rec, idx) => (
                 <div
                   key={idx}
-                  className={`flex gap-3 items-start p-4 rounded-lg bg-[var(--color-input)] border-2 ${rec.priority === "high"
-                    ? "border-primary/30 dark:border-primary/50"
-                    : rec.priority === "medium"
-                      ? "border-blue-300 dark:border-blue-800"
-                      : "border-gray-300 dark:border-gray-700"
-                    }`}
+                  className="flex flex-col p-5 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-sm"
                 >
-                  <div className="flex-shrink-0 mt-0.5">
-                    {rec.type === "reduce" && (
-                      <span className="text-red-500 font-bold text-xl">🔻</span>
-                    )}
-                    {rec.type === "maintain" && (
-                      <span className="text-green-500 font-bold text-xl">
-                        ✅
-                      </span>
-                    )}
-                    {rec.type === "optimize" && (
-                      <span className="text-blue-500 font-bold text-xl">
-                        💡
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className={`p-2 rounded-lg ${rec.type === "reduce" ? "bg-red-500/10 text-red-500" :
+                        rec.type === "maintain" ? "bg-green-500/10 text-green-500" :
+                          "bg-blue-500/10 text-blue-500"
+                        }`}>
+                        {rec.type === "reduce" && <LuCircleArrowDown className="text-lg" />}
+                        {rec.type === "maintain" && <LuCircleCheck className="text-lg" />}
+                        {rec.type === "optimize" && <LuLightbulb className="text-lg" />}
+                      </div>
                       {rec.category && (
                         <span className="text-sm font-bold text-[var(--color-text)]">
                           {rec.category}
                         </span>
                       )}
-                      {rec.priority === "high" && (
-                        <span className="text-xs px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary rounded-full font-bold">
-                          HIGH PRIORITY
-                        </span>
-                      )}
                     </div>
-                    <p className="text-base text-[var(--color-text)] opacity-90 font-medium">
-                      {rec.message}
-                    </p>
-                    {rec.potentialSavings > 0 && (
-                      <p className="text-sm text-green-600 dark:text-green-400 font-bold mt-1">
-                        Save up to ₹
-                        {addThousandsSeparator(
-                          Math.round(rec.potentialSavings),
-                        )}
-                      </p>
+                    {rec.priority === "high" && (
+                      <span className="text-[10px] px-2 py-0.5 bg-primary/10 text-primary rounded font-bold uppercase tracking-wider">
+                        High Priority
+                      </span>
                     )}
                   </div>
+                  <p className="text-sm text-[var(--color-text)] opacity-80 leading-relaxed mb-auto">
+                    {rec.message}
+                  </p>
+                  {rec.potentialSavings > 0 && (
+                    <div className="mt-4 pt-4 border-t border-[var(--color-border)]/50">
+                      <p className="text-sm font-semibold">
+                        <span className="text-[var(--color-text)] opacity-60">Potential Savings: </span>
+                        <span className="text-green-500">₹{addThousandsSeparator(Math.round(rec.potentialSavings))}</span>
+                      </p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -573,20 +536,18 @@ const AIInsights = ({ onRefresh }) => {
 
         {/* General Insights */}
         {insights && insights.length > 0 && (
-          <div>
-            <h6 className="text-lg font-bold text-[var(--color-text)] mb-3">
+          <div className="space-y-3 mt-8">
+            <h6 className="text-sm font-semibold text-[var(--color-text)] opacity-70 uppercase tracking-wider mb-4">
               Key Insights
             </h6>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {insights.map((insight, idx) => (
                 <div
                   key={idx}
-                  className="flex gap-3 items-start bg-[var(--color-input)] rounded-lg p-4 border border-[var(--color-border)]"
+                  className="flex gap-3 items-start bg-[var(--color-card)] rounded-xl p-4 border border-[var(--color-border)] shadow-sm"
                 >
-                  <span className="text-primary font-bold text-xl">
-                    •
-                  </span>
-                  <p className="text-base text-[var(--color-text)] font-medium">
+                  <LuChevronRight className="text-primary text-lg mt-0.5 shrink-0" />
+                  <p className="text-sm text-[var(--color-text)] font-medium leading-relaxed opacity-90">
                     {insight}
                   </p>
                 </div>
@@ -602,46 +563,35 @@ const AIInsights = ({ onRefresh }) => {
     <DashboardLayout activeMenu="AI Insights">
       <div className="transition-page transition-colors duration-300">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-2">
-            AI Insights
-          </h1>
-          <p className="text-[var(--color-text)] opacity-60">
-            Get personalized financial suggestions and analysis powered by AI
-          </p>
-        </div>
+        {/* Clean Header & Inline Usage Stats */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-2 tracking-tight">
+              AI Insights
+            </h1>
+            <p className="text-[var(--color-text)] opacity-60 text-sm">
+              Personalized financial analysis powered by Gemini AI
+            </p>
+          </div>
 
-        {/* Usage Stats Header */}
-        {usageStats && (
-          <div className="bg-[var(--color-input)] rounded-xl p-4 mb-6 border border-[var(--color-border)]">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <h3 className="text-sm font-semibold text-[var(--color-text)] mb-1">Daily AI Usage</h3>
-                <p className="text-xs text-[var(--color-text)] opacity-60">Limits reset at midnight</p>
+          {usageStats && (
+            <div className="flex gap-5 items-center px-4 py-2.5 bg-[var(--color-input)] rounded-full border border-[var(--color-border)]/50">
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                <span className="text-xs font-medium text-[var(--color-text)] opacity-80">
+                  Insights: <span className="text-primary font-bold ml-1">{usageStats.insights.remaining}</span> left
+                </span>
               </div>
-              <div className="flex gap-4 sm:gap-6 w-full sm:w-auto justify-around sm:justify-end">
-                <div className="text-center">
-                  <p className="text-xs text-[var(--color-text)] opacity-60 mb-1">AI Insights</p>
-                  <p className="text-lg sm:text-xl font-bold text-primary">
-                    {usageStats.insights.used}/{usageStats.insights.limit}
-                  </p>
-                  <p className="text-xs text-[var(--color-text)] opacity-50">
-                    {usageStats.insights.remaining} left
-                  </p>
-                </div>
-                <div className="text-center">
-                  <p className="text-xs text-[var(--color-text)] opacity-60 mb-1">Bill Scans</p>
-                  <p className="text-lg sm:text-xl font-bold text-blue-600 dark:text-blue-400">
-                    {usageStats.billScans.used}/{usageStats.billScans.limit}
-                  </p>
-                  <p className="text-xs text-[var(--color-text)] opacity-50">
-                    {usageStats.billScans.remaining} left
-                  </p>
-                </div>
+              <div className="w-px h-3 bg-[var(--color-border)]"></div>
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
+                <span className="text-xs font-medium text-[var(--color-text)] opacity-80">
+                  Scans: <span className="text-blue-500 font-bold ml-1">{usageStats.billScans.remaining}</span> left
+                </span>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         {renderContent()}
       </div>

@@ -216,6 +216,18 @@ const Expense = () => {
 
     return Object.values(dataMap);
   }, [filteredExpense, dateRange]);
+    if (loading && expenseData.length === 0) {
+        return (
+            <DashboardLayout activeMenu="Expense">
+                <div className="space-y-6 animate-pulse">
+                    <div className="w-48 h-8 bg-white/5 rounded-md mb-2"></div>
+                    <div className="w-64 h-4 bg-white/5 rounded-md mb-8"></div>
+                    <div className="card min-h-[350px] bg-white/5 border border-white/10"></div>
+                    <div className="card min-h-[400px] bg-white/5 border border-white/10"></div>
+                </div>
+            </DashboardLayout>
+        );
+    }
 
   return (
     <DashboardLayout activeMenu="Expense">

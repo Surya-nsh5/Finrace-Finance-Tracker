@@ -46,6 +46,23 @@ const CustomLineChart = React.memo(({ data = [] }) => {
                         tickCount={8}
                         minTickGap={30}
                         angle={0}
+                        tickFormatter={(val, index) => {
+                            // Reset the tracker on the first tick of a render pass
+                            if (index === 0) window.__lastAreaChartMonth = '';
+                            
+                            if (typeof val === 'string') {
+                                const parts = val.split(' ');
+                                if (parts.length === 2 && !isNaN(parts[0])) {
+                                    const month = parts[1];
+                                    if (month !== window.__lastAreaChartMonth) {
+                                        window.__lastAreaChartMonth = month;
+                                        return month;
+                                    }
+                                    return ''; // Hide repeated month
+                                }
+                            }
+                            return val;
+                        }}
                     />
                     <YAxis tick={{ fontSize: 12, fill: isDarkMode ? "#94A3B8" : "#555" }} stroke='none' />
                     <Tooltip content={<CustomToolTip />} cursor={false} />

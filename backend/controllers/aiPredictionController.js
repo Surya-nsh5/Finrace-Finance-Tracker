@@ -21,8 +21,10 @@ exports.getFinancialAnalysis = async (req, res) => {
     const userId = req.user._id;
 
     // Fetch all user transactions
-    const expenses = await Expense.find({ userId }).sort({ date: -1 }).lean();
-    const incomes = await Income.find({ userId }).sort({ date: -1 }).lean();
+    const [expenses, incomes] = await Promise.all([
+      Expense.find({ userId }).sort({ date: -1 }).lean(),
+      Income.find({ userId }).sort({ date: -1 }).lean()
+    ]);
 
     // Check if user has minimum data for analysis
     if (!hasMinimumDataForAnalysis(expenses, incomes)) {
@@ -99,8 +101,11 @@ exports.predictExpenses = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    // Fetch expense data
-    const expenses = await Expense.find({ userId }).sort({ date: -1 }).lean();
+    // Fetch expense and income data concurrently
+    const [expenses, incomes] = await Promise.all([
+      Expense.find({ userId }).sort({ date: -1 }).lean(),
+      Income.find({ userId }).sort({ date: -1 }).lean()
+    ]);
 
     if (expenses.length < 10) {
       return res.status(200).json({
@@ -111,8 +116,7 @@ exports.predictExpenses = async (req, res) => {
       });
     }
 
-    // Prepare expense data
-    const incomes = await Income.find({ userId }).sort({ date: -1 }).lean();
+    // Prepare financial data
     const financialData = prepareFinancialDataForAI(expenses, incomes);
 
     // Generate prediction
@@ -148,8 +152,10 @@ exports.analyzeSpending = async (req, res) => {
     const userId = req.user._id;
 
     // Fetch transactions
-    const expenses = await Expense.find({ userId }).sort({ date: -1 }).lean();
-    const incomes = await Income.find({ userId }).sort({ date: -1 }).lean();
+    const [expenses, incomes] = await Promise.all([
+      Expense.find({ userId }).sort({ date: -1 }).lean(),
+      Income.find({ userId }).sort({ date: -1 }).lean()
+    ]);
 
     if (expenses.length < 5) {
       return res.status(200).json({
@@ -195,8 +201,10 @@ exports.getFinancialHealthScore = async (req, res) => {
     const userId = req.user._id;
 
     // Fetch all transactions
-    const expenses = await Expense.find({ userId }).lean();
-    const incomes = await Income.find({ userId }).lean();
+    const [expenses, incomes] = await Promise.all([
+      Expense.find({ userId }).lean(),
+      Income.find({ userId }).lean()
+    ]);
 
     // Calculate basic metrics
     const totalIncome = incomes.reduce((sum, inc) => sum + inc.amount, 0);

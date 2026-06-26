@@ -10,18 +10,38 @@ import UserProvider, { UserContext } from "./context/UserContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { Toaster } from "react-hot-toast";
 import { Suspense, lazy } from "react";
-// Lazy load pages
-const Login = lazy(() => import("./pages/Auth/Login"));
-const SignUp = lazy(() => import("./pages/Auth/SignUp"));
-const Home = lazy(() => import("./pages/Dashboard/Home"));
-const Transactions = lazy(() => import("./pages/Dashboard/Transactions"));
-const AIInsights = lazy(() => import("./pages/Dashboard/AIInsights"));
-const Landing = lazy(() => import("./pages/Landing/Landing"));
-const Settings = lazy(() => import("./pages/Dashboard/Settings"));
-const UdhaarHome = lazy(() => import("./pages/Dashboard/UdhaarHome"));
-const AddBorrower = lazy(() => import("./pages/Dashboard/AddBorrower"));
-const UdhaarDetails = lazy(() => import("./pages/Dashboard/UdhaarDetails"));
-const Subscription = lazy(() => import("./pages/Dashboard/Subscription"));
+// Permanent fix for Vercel deployment chunk loading errors (Failed to fetch dynamically imported module)
+const lazyWithRetry = (componentImport) =>
+  lazy(async () => {
+    const pageHasAlreadyBeenForceRefreshed = JSON.parse(
+      window.sessionStorage.getItem('page-has-been-force-refreshed') || 'false'
+    );
+    try {
+      const component = await componentImport();
+      window.sessionStorage.setItem('page-has-been-force-refreshed', 'false');
+      return component;
+    } catch (error) {
+      if (!pageHasAlreadyBeenForceRefreshed) {
+        // Assume this is a new deployment on Vercel, force refresh to get latest JS chunks
+        window.sessionStorage.setItem('page-has-been-force-refreshed', 'true');
+        return window.location.reload();
+      }
+      throw error;
+    }
+  });
+
+// Lazy load pages with retry mechanism
+const Login = lazyWithRetry(() => import("./pages/Auth/Login"));
+const SignUp = lazyWithRetry(() => import("./pages/Auth/SignUp"));
+const Home = lazyWithRetry(() => import("./pages/Dashboard/Home"));
+const Transactions = lazyWithRetry(() => import("./pages/Dashboard/Transactions"));
+const AIInsights = lazyWithRetry(() => import("./pages/Dashboard/AIInsights"));
+const Landing = lazyWithRetry(() => import("./pages/Landing/Landing"));
+const Settings = lazyWithRetry(() => import("./pages/Dashboard/Settings"));
+const UdhaarHome = lazyWithRetry(() => import("./pages/Dashboard/UdhaarHome"));
+const AddBorrower = lazyWithRetry(() => import("./pages/Dashboard/AddBorrower"));
+const UdhaarDetails = lazyWithRetry(() => import("./pages/Dashboard/UdhaarDetails"));
+const Subscription = lazyWithRetry(() => import("./pages/Dashboard/Subscription"));
 
 // Loading component while checking auth
 const AuthLoadingScreen = () => (
@@ -31,7 +51,7 @@ const AuthLoadingScreen = () => (
         <div className="absolute inset-0 rounded-full border-4 border-primary/20"></div>
         <div className="absolute inset-0 rounded-full border-4 border-t-primary animate-spin"></div>
         <div className="absolute inset-0 flex items-center justify-center p-3">
-          <img src="https://lh3.googleusercontent.com/d/1sh3I52WFTUbvX-19WI1u400uuiZ9vgS8" alt="FinRace" className="w-full h-full object-contain opacity-50" referrerPolicy="no-referrer" />
+          <img src="/favicon.png" alt="FinRace" className="w-full h-full object-contain opacity-50" />
         </div>
       </div>
       <p className="text-[var(--color-text)] opacity-60 font-medium tracking-wide animate-pulse">

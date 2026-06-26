@@ -544,8 +544,19 @@ const UdhaarDetails = () => {
   if (loading && !loan) {
     return (
       <DashboardLayout activeMenu="Udhaar">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-[#D4AF37]"></div>
+        <div className="space-y-6 animate-pulse">
+          <div className="w-24 h-4 bg-white/5 rounded-full mb-6"></div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div className="card lg:col-span-4 min-h-[250px] bg-white/5 border border-white/10"></div>
+            <div className="card lg:col-span-8 min-h-[250px] bg-white/5 border border-white/10"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="card min-h-[150px] bg-white/5 border border-white/10"></div>
+            <div className="card min-h-[150px] bg-white/5 border border-white/10"></div>
+            <div className="card min-h-[150px] bg-white/5 border border-white/10"></div>
+          </div>
         </div>
       </DashboardLayout>
     );

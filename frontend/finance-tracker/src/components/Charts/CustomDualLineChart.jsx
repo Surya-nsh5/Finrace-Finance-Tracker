@@ -81,6 +81,24 @@ const CustomDualLineChart = React.memo(({ data = [], lines = [], xAxisKey = 'dat
                         tick={{ fontSize: isDesktop ? 11 : 9, fill: isDarkMode ? "#94A3B8" : "#555" }}
                         stroke={isDarkMode ? "rgba(212, 175, 55, 0.15)" : "#d1d5db"}
                         tickLine={false}
+                        minTickGap={20}
+                        tickFormatter={(val, index) => {
+                            // Reset the tracker on the first tick of a render pass
+                            if (index === 0) window.__lastDualChartMonth = '';
+                            
+                            if (typeof val === 'string') {
+                                const parts = val.split(' ');
+                                if (parts.length === 2 && !isNaN(parts[0])) {
+                                    const month = parts[1];
+                                    if (month !== window.__lastDualChartMonth) {
+                                        window.__lastDualChartMonth = month;
+                                        return month;
+                                    }
+                                    return ''; // Hide repeated month
+                                }
+                            }
+                            return val;
+                        }}
                     />
                     <YAxis
                         tick={{ fontSize: isDesktop ? 12 : 9, fill: isDarkMode ? "#94A3B8" : "#555" }}

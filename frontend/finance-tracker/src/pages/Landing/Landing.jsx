@@ -153,7 +153,7 @@ const Landing = () => {
             <nav className="flex items-center justify-between px-6 md:px-12 py-6 w-full max-w-7xl mx-auto">
                 <div className="flex items-center gap-2 cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                     <img
-                        src="https://lh3.googleusercontent.com/d/1sh3I52WFTUbvX-19WI1u400uuiZ9vgS8"
+                        src="/favicon.png"
                         alt="FinRace Logo"
                         className="w-10 h-10 transition-transform group-hover:scale-110"
                         loading="eager"
@@ -491,7 +491,7 @@ const Landing = () => {
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="flex items-center gap-2 cursor-pointer group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                         <img
-                            src="https://lh3.googleusercontent.com/d/1sh3I52WFTUbvX-19WI1u400uuiZ9vgS8"
+                            src="/favicon.png"
                             alt="FinRace Logo"
                             className="w-8 h-8 transition-transform group-hover:scale-110"
                             loading="lazy"

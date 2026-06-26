@@ -25,6 +25,27 @@ const Home = () => {
     revalidateOnFocus: true,
     dedupingInterval: 60000, // 1 minute deduping to avoid spam
   });
+  if (loading && !dashboardData) {
+    return (
+      <DashboardLayout activeMenu="Dashboard">
+        <div className="space-y-6 animate-pulse">
+          <div className="w-48 h-8 bg-white/5 rounded-md mb-8"></div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="card min-h-[140px] bg-white/5 border border-white/10"></div>
+            <div className="card min-h-[140px] bg-white/5 border border-white/10"></div>
+            <div className="card min-h-[140px] bg-white/5 border border-white/10"></div>
+            <div className="card min-h-[140px] bg-white/5 border border-white/10"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="card lg:col-span-2 min-h-[400px] bg-white/5 border border-white/10"></div>
+            <div className="card min-h-[400px] bg-white/5 border border-white/10"></div>
+          </div>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout activeMenu="Dashboard">

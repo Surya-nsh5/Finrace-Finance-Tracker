@@ -127,11 +127,15 @@ exports.getBorrowerList = async (req, res) => {
     const borrowers = await Borrower.find({ userId }).sort({ createdAt: -1 }).lean();
     const borrowerIds = borrowers.map(b => b._id);
 
-    const loans = await Loan.find({ userId, borrowerId: { $in: borrowerIds } }).lean();
-    const payments = await Payment.find({ userId, borrowerId: { $in: borrowerIds } }).lean();
+    const [loans, payments] = await Promise.all([
+      Loan.find({ userId, borrowerId: { $in: borrowerIds } }).lean(),
+      Payment.find({ userId, borrowerId: { $in: borrowerIds } }).lean()
+    ]);
 
     // Combined aggregation mapping
     const combined = [];
+    const backgroundUpdates = [];
+    
     for (const b of borrowers) {
       const bLoans = loans.filter(l => l.borrowerId.toString() === b._id.toString());
       const bPayments = payments.filter(p => p.borrowerId.toString() === b._id.toString());
@@ -141,8 +145,8 @@ exports.getBorrowerList = async (req, res) => {
         const overdue = l.status !== 'Paid' && new Date(l.dueDate) < today;
         if (overdue && l.status !== 'Overdue') {
           l.status = 'Overdue';
-          // Save back to db quietly
-          await Loan.updateOne({ _id: l._id }, { $set: { status: 'Overdue' } });
+          // Save back to db quietly in the background
+          backgroundUpdates.push(Loan.updateOne({ _id: l._id }, { $set: { status: 'Overdue' } }));
         }
       }
 
@@ -151,6 +155,11 @@ exports.getBorrowerList = async (req, res) => {
         loans: bLoans,
         payments: bPayments
       });
+    }
+
+    // Execute background updates without blocking response
+    if (backgroundUpdates.length > 0) {
+      Promise.all(backgroundUpdates).catch(err => console.error('Error updating overdue statuses:', err));
     }
 
     res.json(combined);
@@ -170,17 +179,24 @@ exports.getBorrowerById = async (req, res) => {
       return res.status(404).json({ message: 'Borrower details not found' });
     }
 
-    const loans = await Loan.find({ borrowerId: req.params.id, userId }).lean();
-    const payments = await Payment.find({ borrowerId: req.params.id, userId }).sort({ paymentDate: -1 }).lean();
-    const reminders = await Reminder.find({ borrowerId: req.params.id, userId }).sort({ reminderDate: 1 }).lean();
+    const [loans, payments, reminders] = await Promise.all([
+      Loan.find({ borrowerId: req.params.id, userId }).lean(),
+      Payment.find({ borrowerId: req.params.id, userId }).sort({ paymentDate: -1 }).lean(),
+      Reminder.find({ borrowerId: req.params.id, userId }).sort({ reminderDate: 1 }).lean()
+    ]);
 
     // Dynamically check and adjust status of pending loans in list
+    const backgroundUpdates = [];
     for (const l of loans) {
       const overdue = l.status !== 'Paid' && new Date(l.dueDate) < today;
       if (overdue && l.status !== 'Overdue') {
         l.status = 'Overdue';
-        await Loan.updateOne({ _id: l._id }, { $set: { status: 'Overdue' } });
+        backgroundUpdates.push(Loan.updateOne({ _id: l._id }, { $set: { status: 'Overdue' } }));
       }
+    }
+
+    if (backgroundUpdates.length > 0) {
+      Promise.all(backgroundUpdates).catch(err => console.error('Error updating overdue statuses:', err));
     }
 
     res.json({
@@ -364,7 +380,7 @@ exports.addPayment = async (req, res) => {
     const savedPayment = await newPayment.save();
 
     // Recalculate loan totals
-    const allPayments = await Payment.find({ loanId, userId });
+    const allPayments = await Payment.find({ loanId, userId }).lean();
     const totalPaid = allPayments.reduce((sum, p) => sum + p.amount, 0);
 
     loan.amountPaid = totalPaid;
@@ -418,7 +434,7 @@ exports.updatePayment = async (req, res) => {
     // Recalculate loan totals
     const loan = await Loan.findOne({ _id: payment.loanId, userId });
     if (loan) {
-      const allPayments = await Payment.find({ loanId: loan._id, userId });
+      const allPayments = await Payment.find({ loanId: loan._id, userId }).lean();
       const totalPaid = allPayments.reduce((sum, p) => sum + p.amount, 0);
 
       loan.amountPaid = totalPaid;
@@ -458,7 +474,7 @@ exports.deletePayment = async (req, res) => {
 
     const loan = await Loan.findOne({ _id: payment.loanId, userId });
     if (loan) {
-      const allPayments = await Payment.find({ loanId: loan._id, userId });
+      const allPayments = await Payment.find({ loanId: loan._id, userId }).lean();
       const totalPaid = allPayments.reduce((sum, p) => sum + p.amount, 0);
 
       loan.amountPaid = totalPaid;
@@ -606,10 +622,10 @@ exports.exportBackup = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const borrowers = await Borrower.find({ userId });
-    const loans = await Loan.find({ userId });
-    const payments = await Payment.find({ userId });
-    const reminders = await Reminder.find({ userId });
+    const borrowers = await Borrower.find({ userId }).lean();
+    const loans = await Loan.find({ userId }).lean();
+    const payments = await Payment.find({ userId }).lean();
+    const reminders = await Reminder.find({ userId }).lean();
 
     res.setHeader('Content-Disposition', 'attachment; filename="udhaar_database_backup.json"');
     res.type('application/json');

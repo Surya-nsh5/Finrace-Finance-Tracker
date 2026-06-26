@@ -77,7 +77,7 @@ exports.downloadExpenseExcel = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const expense = await Expense.find({ userId: userId }).sort({ date: -1 });
+    const expense = await Expense.find({ userId: userId }).sort({ date: -1 }).lean();
 
     if (expense.length === 0) {
       return res.status(404).json({ message: "No expense data found" });

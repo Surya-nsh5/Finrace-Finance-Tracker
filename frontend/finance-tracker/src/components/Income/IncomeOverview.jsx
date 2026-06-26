@@ -43,6 +43,7 @@ const IncomeOverview = React.memo(({ chartData, transactions, onAddIncome, addBu
 
         <div className="mt-2 -mx-2 sm:-mx-4 -mt-2">
             <CustomBarChart
+                key={dateRange}
                 data={chartData || []}
                 colors={["#10B981", "#34D399", "#6EE7B7", "#A7F3D0"]}
             />
