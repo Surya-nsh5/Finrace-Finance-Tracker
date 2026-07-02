@@ -36,7 +36,10 @@ exports.getAllExpense = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const expense = await Expense.find({ userId }).sort({ date: -1 }).lean();
+    const expense = await Expense.find({ userId })
+      .select('-__v -updatedAt') // Keep Projection for optimization
+      .sort({ date: -1 })
+      .lean();
     res.json(expense);
   } catch (error) {
     res.status(500).json({ message: "Server error" });

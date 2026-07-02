@@ -89,7 +89,7 @@ const SideMenu = ({ activeMenu }) => {
                     onLogout={() => {
                         clearUser();
                         setOpenLogoutModal(false);
-                        navigate('/login');
+                        navigate('/');
                     }}
                 />
             </Modal>

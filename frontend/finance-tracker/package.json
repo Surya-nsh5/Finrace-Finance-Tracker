@@ -23,9 +23,11 @@
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.9.3",
+    "react-window": "^2.2.7",
     "recharts": "^3.2.1",
     "swr": "^2.4.2",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.13",
+    "vite-plugin-image-optimizer": "^2.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

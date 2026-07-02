@@ -11,7 +11,7 @@ export const useUserAuth = () => {
     useEffect(() => {
         // Only redirect if we are done checking auth and user is not authenticated
         if (!isAuthChecking && !isAuthenticated) {
-            navigate('/login');
+            navigate('/');
         }
     }, [isAuthenticated, isAuthChecking, navigate]);
 
